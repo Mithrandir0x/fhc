@@ -1,0 +1,329 @@
+body {
+font-size:1.5em;
+margin: 0 5%;
+background-color:#edf6f9;
+font-family:Verdana, Geneva, sans-serif
+}
+
+@media (max-width: 400px) {
+  body {
+    font-size: 9pt;
+  }
+}
+
+h1,h2,h3 ,h4,h5,h6{
+border:2px solid;
+border-radius:5px;
+vertical-align:center;
+font-family:Georgia, serif;
+}
+
+
+h1{
+padding:2%;
+font-size:2em;
+text-align:right;
+background-color: #cbe5f7;
+border-color:#0070c0;
+}
+
+#inici h1{
+min-height:3.5em;
+}
+
+@media (min-width: 400px) {
+	#inici h1{
+		background: #cbe5f7 url('../imatges/fhic.png') no-repeat left ; 
+	}
+}
+
+@media (min-width: 400px) {
+	.thumbnail {
+		margin-bottom: 8px;
+	}
+}
+
+h2 {
+font-size:1.5em;
+border:0;
+color:#b63936;
+text-align:right;
+}
+
+#inici h2{
+min-height:1.8em;
+}
+
+#inici h3,h4{
+color:#0070c0;
+border-color:#0070c0;
+}
+
+h3{
+color:#b63936;
+font-variant:small-caps;
+border:0;
+}
+
+h4{
+border:0;
+font-size:1.1em;
+}
+
+h5 {
+border:0;
+color:#b63936;
+font-size:1em;
+}
+
+h6{
+border:0;
+color:#b63936;
+font-size:1em;
+}
+
+h2 p strong {
+font-size:1.6em;
+color:#0070c0;
+}
+
+ul .nav-pills {
+	width:100%;
+	text-align:center;
+}
+
+.nav-pills li {
+	min-width:12%;
+	margin:1%;
+}
+
+.nav-pills li a{
+	padding:2%;
+	margin:0;
+	color:#ffffff;
+	border:5px outset #b63936;
+	background-color:#b63936;
+} 
+
+.nav-pills li.active a {
+	background-color:#0070c0;
+	border-color:#0070c0;
+} 
+
+.nav-pills li a:hover {
+	color:#b63936;
+}
+
+.navbar li {
+line-height:1em;
+}
+
+.thumbnail {
+text-align:center;
+border-radius:3%;
+border:2px solid #b63936;
+background-color:#fdeada;
+}
+
+.thumbnail .caption p {
+text-align:left;
+}
+
+
+#content .row {
+	vertical-align:center;
+	border-bottom:1px solid #b63936;
+	padding-top:5px;
+	padding-bottom:5px;
+}
+
+#content .falsa, #content .darrera {
+	border-bottom:0;
+}
+
+
+#content .primera{
+	border-top:1px solid #b63936;
+}
+table{
+	margin:5%; margin-top: 2%; margin-bottom: 2%;
+}
+th, td{
+	padding:5px;
+}
+table thead th {
+	background-color:#006699; 
+	color:#FFFFFF; 
+	font-weight: bold; 
+	border-left: 1px solid #0070A8; } 
+table thead th:first-child { 
+	border: none; }
+table tbody tr td { 
+	color: #00496B; 
+	border-left: 1px solid #E1EEC4;
+	font-weight: normal; }
+table tbody tr:nth-child(odd) td { 
+	background: #E1EEC4; 
+	color: #00496B; }
+table tbody tr  th{ 
+	border-left: none; }
+table tbody tr:last-child td { 
+	border-bottom: none; }
+/* a partir del codi de http://tablestyler.com/ */
+
+#peu {
+background-color: #cbe5f7;
+}
+
+#peu  li {
+float:left;
+padding-left:3%;
+margin-left:10%;
+}
+
+#peu  li a{
+color:#0070c0;
+}
+
+/*@media (min-width: 1200px) {  
+	#peu {
+	position: fixed; 
+	right: 0;
+	left: 0;
+	border-radius: 0;
+	bottom: 0;
+	margin-bottom: 0;
+	}
+}*/   /*eliminat perquè se solapa amb el contingut anterior*/
+
+#UB {
+background: #cbe5f7 url('../imatges/logoub.png') no-repeat left ; 
+}
+#Mat {
+background: #cbe5f7 url('../imatges/logomat.png') no-repeat left ; 
+}
+#FHIC{
+background: #cbe5f7 url('../imatges/logofhic.png') no-repeat left ; 
+}
+
+.equip, .noticia, .font{
+border-radius: 18px;
+border:2px solid #b63936;
+}
+
+.equip{
+background-color:#fdeada;
+}
+
+.equip h4,.personatge h4{
+	display:inline;
+	font-size:1em;
+} 
+
+.equip img, .font img{
+	float:left;
+	margin:5px;
+	font-weight:bold;
+	width: 94px;
+} 
+
+.personatge img{
+	float:right;
+	margin:5px;
+	width: 128px;
+} 
+
+img .prototip {
+border:0;
+float:left;
+}
+
+dt,dd {
+display:inline;
+margin-right:0.5em;
+}
+
+.rating-input .glyphicon
+{
+	cursor: pointer;
+	font-size: 24px;
+}
+
+.modal-hta-diagram .modal-dialog
+{
+	width: 90%;
+}
+
+.modal-hta-diagram .modal-body
+{
+	border: 20px solid #FFF;
+	overflow: hidden;
+	padding: 0;
+}
+
+.modal-hta-diagram .mxgraph
+{
+	width: 100% !important;
+}
+
+.slick-prev:before, .slick-next:before { color: #0070C0; }
+
+.storyboard
+{
+	border: 2px solid rgb(182, 57, 54);
+	border-radius: 16px;
+	padding: 18px 32px;
+}
+
+.vignette
+{
+	background: rgba(0, 112, 192, 0.25);
+}
+
+.vignette-photo
+{
+	height: auto;
+	width: 100%;
+}
+
+.vignette-text
+{
+	background: rgba(0, 112, 192, 0.4);
+	color: #fff;
+	height: 226px;
+	overflow: auto;
+	padding: 12px;
+	padding-bottom: 1px;
+}
+
+.vignette-text.small
+{
+	height: 48px;
+}
+
+.storyboard-wrapper
+{
+	float: none;
+	margin-left: auto;
+	margin-right: auto;
+	width: 70%;
+}
+
+@media (max-width: 1024px) {
+	.storyboard-wrapper { width: 100%; }
+}
+
+@media print {
+	.slick-prev, .slick-next, .slick-dots { display: none; }
+}
+
+#contribucions .equip img
+{
+	margin-right: 24px;
+}
+
+.font img
+{
+	margin-right: 18px;
+	margin-top: 16px;
+}

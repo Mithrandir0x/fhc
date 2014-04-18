@@ -1,0 +1,680 @@
+﻿<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <title>Pràctica 2. Generació del disseny, prototipat (lo-fi) i avaluació heurística (FHIC)</title> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" >
+  <meta charset="UTF-8" >
+  <meta name="author" content="Ribera, Mireia">
+  <meta name="description" content="Pàgina de la pràctica 2, generació del disseny, prototipat (lo-fi) i avaluació heurística, del portafoli de mostra de l'assignatura Factors Humans i Computació del Grau d'Enginyeria Informàtica a la UB">
+  <meta name="keywords" content="disseny centrat en l'usuari, factors humans">
+  <style type="text/css">
+    /* Slider */
+    .slick-slider { position: relative; display: block; box-sizing: border-box; -moz-box-sizing: border-box; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; -ms-touch-action: none; touch-action: none; -webkit-tap-highlight-color: transparent; }
+
+    .slick-list { position: relative; overflow: hidden; display: block; margin: 0; padding: 0; }
+    .slick-list:focus { outline: none; }
+    .slick-loading .slick-list { background: white url(./ajax-loader.gif) center center no-repeat; }
+    .slick-list.dragging { cursor: pointer; cursor: hand; }
+
+    .slick-slider .slick-list, .slick-track, .slick-slide, .slick-slide img { -webkit-transform: translate3d(0, 0, 0); -moz-transform: translate3d(0, 0, 0); -ms-transform: translate3d(0, 0, 0); -o-transform: translate3d(0, 0, 0); transform: translate3d(0, 0, 0); }
+
+    .slick-track { position: relative; left: 0; top: 0; display: block; zoom: 1; }
+    .slick-track:before, .slick-track:after { content: ""; display: table; }
+    .slick-track:after { clear: both; }
+    .slick-loading .slick-track { visibility: hidden; }
+
+    .slick-slide { float: left; height: 100%; min-height: 1px; display: none; }
+    .slick-slide img { display: block; }
+    .slick-slide.dragging img { pointer-events: none; }
+    .slick-initialized .slick-slide { display: block; }
+    .slick-loading .slick-slide { visibility: hidden; }
+    .slick-vertical .slick-slide { display: block; height: auto; border: 1px solid transparent; }
+
+    /* Icons */
+    @font-face { font-family: "slick"; src: url("./js/slick/fonts/slick.eot"); src: url("./js/slick/fonts/slick.eot?#iefix") format("embedded-opentype"), url("./js/slick/fonts/slick.woff") format("woff"), url("./js/slick/fonts/slick.ttf") format("truetype"), url("./js/slick/fonts/slick.svg#slick") format("svg"); font-weight: normal; font-style: normal; }
+    /* Arrows */
+    .slick-prev, .slick-next { position: absolute; display: block; height: 20px; width: 20px; line-height: 0; font-size: 0; cursor: pointer; background: transparent; color: transparent; top: 50%; margin-top: -10px; padding: 0; border: none; outline: none; }
+    .slick-prev:focus, .slick-next:focus { outline: none; }
+    .slick-prev.slick-disabled:before, .slick-next.slick-disabled:before { opacity: 0.25; }
+
+    .slick-prev:before, .slick-next:before { font-family: "slick"; font-size: 20px; line-height: 1; color: white; opacity: 0.85; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+    .slick-prev { left: -25px; }
+    .slick-prev:before { content: '\2190'; }
+
+    .slick-next { right: -25px; }
+    .slick-next:before { content: '\2192'; }
+
+    /* Dots */
+    .slick-slider { margin-bottom: 30px; }
+
+    .slick-dots { position: absolute; bottom: -45px; list-style: none; display: block; text-align: center; padding: 0px; width: 100%; }
+    .slick-dots li { position: relative; display: inline-block; height: 20px; width: 20px; margin: 0px 5px; padding: 0px; cursor: pointer; }
+    .slick-dots li button { border: 0; background: transparent; display: block; height: 20px; width: 20px; outline: none; line-height: 0; font-size: 0; color: transparent; padding: 5px; cursor: pointer; outline: none; }
+    .slick-dots li button:focus { outline: none; }
+    .slick-dots li button:before { position: absolute; top: 0; left: 0; content: '\2022'; width: 20px; height: 20px; font-family: "slick"; font-size: 6px; line-height: 20px; text-align: center; color: black; opacity: 0.25; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    .slick-dots li.slick-active button:before { opacity: 0.75; }
+  </style>
+  <link href="css/bootstrap.min.css" rel="stylesheet" media="screen" >
+  <link href="css/glyphicons.css" rel="stylesheet" media="screen" >
+  <link href="css/fhic.css" rel="stylesheet" media="screen" >
+  <link rel="shortcut icon" href="imatges/favicon.ico">
+  <link rel="apple-touch-icon" href="imatges/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="imatges/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="imatges/apple-touch-icon-114x114.png">
+</head>
+<body>
+  <script src="js/jquery-1.9.1.js" type="text/javascript"></script>
+  <script src="js/bootstrap.js" type="text/javascript"></script>
+  <script src="js/bootstrap-rating-input.js" type="text/javascript"></script>
+  <script src="js/slick/slick.js" type="text/javascript"></script>
+  <script src="js/portfolio.js" type="text/javascript"></script>
+  <ul class="nav nav-pills" id="navegacio-fhc">
+    <li>
+      <a href="inici.htm">Inici</a>
+    </li>
+    <li>
+      <a href="P0proposta.htm">P0.Proposta</a>
+    </li>
+    <li>
+      <a href="P1necessitats.htm">P1.Necessitats</a>
+    </li>
+    <li class="active">
+      <a>P2.Heurístiques</a>
+    </li>
+    <li>
+      <a href="P3prototip.htm">P3.Prototip</a>
+    </li>
+    <li>
+      <a href="P4test.htm">P4.Test</a>
+    </li>
+    <li>
+      <a href="web.htm">Web</a>
+    </li>
+  </ul>
+  <h1>Laboratori FHIC Curs&nbsp;2013&nbsp;2014 Grup&nbsp;B4</h1>
+  <div class="row" id="index">
+    <div class="col-6 col-sm-6 col-lg-2">
+      <img src="imatges/implementacio.png" alt="fase d'implementació" class="fase"></div>
+    <div class="col-6 col-sm-6 col-lg-2">
+      <ul class="navbar nav" >
+        <li>
+          <a href="#fonts">Fonts d'inspiració</a>
+        </li>
+        <li>
+          <a href="#dissenys">Dissenys</a>
+        </li>
+        <li>
+          <a href="#prototip">Prototip en paper</a>
+        </li>
+        <li>
+          <a href="#heuristica">Avaluació heurística</a>
+        </li>
+        <li>
+          <a href="#contribucio">Equip</a>
+        </li>
+      </ul>
+    </div>
+    <h2 class="col-12 col-sm-6 col-lg-offset-2 col-lg-6">
+      Pràctica 2. Generació del disseny, prototipat (lo-fi) i avaluació heurística
+      <br >
+      Nom del web: <strong>Receptes.cat</strong>
+      <br />
+      <button type="button" style="margin-top: 16px;" class="btn btn-info modal-review-button">Feedback!</button>
+    </h2>
+  </div>
+  <div id="content">
+    <div class="row primera" id="fontsinspiracio">
+      <h3 class="col-12 col-sm-3 col-lg-3" id="fonts">Fonts d'inspiració</h3>
+      <div class="col-12 col-sm-4 col-lg-4 font"  >
+        <img src="imatges/p2/pinterest_000.PNG" alt="Logotipus Pinterest">
+        <h4>Pinterest</h4>
+        <p>
+          <a href="http://www.pinterest.com">http://www.pinterest.com</a>
+          <br >
+          El disseny minimalista, i visualment agradable, tot i la quantitat d'informació que ofereixen. Una imatge val més que mil paraules.
+        </p>
+      </div>
+      <div class="col-12 col-sm-4 col-lg-4 col-sm-offset-1 col-lg-offset-1 font" >
+        <img src="imatges/p2/ifixit_000.png" alt="Logotipus iFixit">
+        <h4>iFixit</h4>
+        <p>
+          <a href="http://www.ifixit.com">http://www.ifixit.com</a>
+          <br >
+          El format de les guies altament detallades que proporcionen per reparacions i desacoblaments de dispositius.
+        </p>
+      </div>
+    </div>
+    
+    <!-- <div class="row">
+      <div class="col-12 col-sm-4 col-lg-4 col-sm-offset-3 col-lg-offset-3 font">
+        <img src="imatges/font3.png" alt="Captura del web patro1">
+        <h4>Patró 1</h4>
+        <p>
+          <a href="http://www.patro1.com">http://www.patro1.com</a>
+          <br >
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.
+        </p>
+      </div>
+      <div class="col-12 col-sm-4 col-lg-4 col-sm-offset-1 col-lg-offset-1 font" >
+        <img src="imatges/font4.png" alt="Captura del web patro2">
+        <h4>Patró 2</h4>
+        <p>
+          <a href="http://www.patro2.com">http://www.patro2.com</a>
+          <br >
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.
+        </p>
+      </div>
+    </div> -->
+
+    <div class="row falsa" id="dissenys">
+      <div class="col-12 col-sm-3 col-lg-3" >
+        <h3 id="dissenys">Dissenys</h3>
+        <ul class="navbar nav" >
+          <li>
+            <a href="#escenarius">Escenari d'ús</a>
+          </li>
+          <li>
+            <a href="#dissenya">Disseny A</a>
+          </li>
+          <li>
+            <a href="#dissenyb">Disseny B</a>
+          </li>
+          <li>
+            <a href="#dissenyescollit">Disseny escollit</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-12 col-sm-9 col-lg-9" id="escenarius" >
+        <h4>Escenari d'ús</h4>
+        <p>
+        L'usuari vol <strong>crear una recepta</strong>. Ja s'ha registrat, i ha iniciat sessió amb el seu compta d'usuari.
+        </p>
+      </div>
+    </div>
+    
+    <div class="col-12 col-sm-9 col-lg-9 col-sm-offset-3 col-lg-offset-3" id="dissenya" >
+      <h4>Disseny A</h4>
+      <div class="clearfix storyboard">
+        <div class="storyboard-wrapper">
+          <div class="slick-storyboard">
+            <div class="vignette">
+              <div>
+                <img class="vignette-photo" src="imatges/p2/DissenyA-Pas1_low.jpg">
+              </div>
+              <div class="vignette-text">
+                <p>
+                  El primer que veu, una vegada ha iniciat sessió és la pantalla d’inici o Home, on pot veure recomanacions de diferents receptes, i la capçalera de l’aplicació.
+                </p>
+                <p>
+                  Aquesta capçalera sempre està disponible a qualsevol secció de l’aplicació. A l’esquerra trobem una caixa de text on podem escriure la recepta, o ingredient de recepta. A la dreta tenim l’àrea d’usuari, on hi ha un botó per afegir noves receptes, i també una imatge i el nom de l’usuari amb el que ha accedit al sistema.
+                </p>
+                <p>
+                  L’usuari fa “click” al botó per afegir receptes.
+                </p>
+              </div>
+            </div>
+            <div class="vignette">
+              <div>
+                <img class="vignette-photo" src="imatges/p2/DissenyA-Pas2_low.jpg">
+              </div>
+              <div class="vignette-text">
+                <p>
+                  El primer pas és escollir els ingredients que es volen usar per fer la recepta. En aquesta pantalla, es presenten dues seccions, una caixa de text on podem introduir el text dels possibles ingredients que estem cercant. Quan s’introdueix i es prem el botó de cercar, el sistema ens retornarà aquells ingredients que coincideixin amb el criteri de cerca.
+                </p>
+                <p>
+                  Quan es carrega la llista, apareixen una graella de botons en forma d’imatge dels ingredients disponibles. Quan es fa clic sobre un d’ells, apareix la segona secció, d’Ingredients Escollits, i s’agregarà l’ingredient seleccionat a la llista.
+                </p>
+                <p>
+                  Una vegada s’han afegit tots els ingredients desitjats, l’usuari clica al botó “Preparar la recepta”.
+                </p>
+              </div>
+            </div>
+            <div class="vignette">
+              <div>
+                <img class="vignette-photo" src="imatges/p2/DissenyA-Pas3_low.jpg">
+              </div>
+              <div class="vignette-text">
+                <p>
+                  L’usuari passa a la pantalla d’edició de la recepta, on pot descriure els passos necessaris a seguir de la recepta.
+                </p>
+                <p>
+                  En primer lloc, hi ha un camp de text amb el títol de la recepta. Quan l’usuari fa clic sobre el camp per editar-ho, el text per defecte desapareix per deixar a l’usuari escriure el que vol. Òbviament, si el usuari escriu qualsevol cosa, però després l’esborra i vol editar qualsevol altra cosa, s’omplirà el camp amb el text per defecte.
+                </p>
+                <p>
+                  Es mostra la llista d’ingredients que s’ha afegit en la pantalla anterior. Si es vol editar la llista, hi ha un botó que permet tornar enrere i fer els canvis adients.
+                </p>
+                <p>
+                  A continuació, l’usuari pot afegir nous passos de recepta fent clic al botó “Afegir pas”. Quan es fa clic, s’afegeix una nova secció que li permet editar un títol descriptiu del pas, de la mateixa manera com s’edita el títol de la recepta. A més, pot afegir una imatge del pas, arrossegant una imatge des de l’explorador de fitxer amb el que treballi contra l’àrea indicada, i s’afegirà automàticament. I per últim, un camp de text formatat on podrà afegir la descripció del pas, explicant detalladament que s’ha de fer.
+                </p>
+                <p>
+                  Els canvis es van guardant a mesura que es va afegint més informació, per no obligar a l’usuari a tenir que fer la recepta d’una sola tacada.
+                </p>
+                <p>
+                  Per últim, una vegada l’usuari ja ha fet tots els canvis que volia, pot publicar la recepta fent clic al botó “Publicar recepta”.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row falsa" id="dissenyb">
+      <div class="col-12 col-sm-9 col-lg-9 col-sm-offset-3 col-lg-offset-3" >
+        <h4>Disseny B</h4>
+        <div class="clearfix storyboard">
+          <div class="storyboard-wrapper">
+            <div class="slick-storyboard">
+              <div class="vignette">
+                <div>
+                  <img class="vignette-photo" src="imatges/p2/dissenyb/001_low.jpg">
+                </div>
+                <div class="vignette-text">
+                  <p>
+                    Quan l’usuari entra per primera vegada, es trobarà amb el missatge per si vol afegir una nova recepta. Aquest missatge només surt la primera vegada, i la idea és incentivar l’ús d’aquesta tasca.
+                  </p>
+                  <p>
+                    L’usuari pot fer clic sobre el missatge, o sobre el botó circular amb el signe més al costat del perfil d’usuari, per poder començar a crear una nova recepta.
+                  </p>
+                </div>
+              </div>
+              <div class="vignette">
+                <div>
+                  <img class="vignette-photo" src="imatges/p2/dissenyb/002_low.jpg">
+                </div>
+                <div class="vignette-text">
+                  <p>
+                    En aquesta pantalla, l’usuari pot veure l’estat inicial de la recepta. No hi ha ingredients encara, ni passos, òbviament.
+                  </p>
+                  <p>
+                    En primer lloc, pot editar el títol de la recepta. Quan l’usuari fa clic sobre el camp per editar-ho, el text per defecte desapareix per deixar a l’usuari escriure el que vol. Òbviament, si el usuari escriu qualsevol cosa, però després l’esborra i vol editar qualsevol altra cosa, s’omplirà el camp amb el text per defecte.
+                  </p>
+                  <p>
+                    A continuació,  pot optar per afegir nous ingredients, o afegir un nou pas de recepta.
+                  </p>
+                </div>
+              </div>
+              <div class="vignette">
+                <div>
+                  <img class="vignette-photo" src="imatges/p2/dissenyb/003a_low.jpg">
+                </div>
+                <div class="vignette-text">
+                  <p>
+                    Quan l’usuari prem el botó sobre afegir nou ingredient, el botó es transforma en un camp de text, on l’usuari pot introduir text.
+                  </p>
+                  <p>
+                    Quan introdueixi text, el sistema li oferirà possibles opcions a ingredients a seleccionar en forma d’una llista desplegada. Aquesta llista canvia en temps real, en funció del text introduït.
+                  </p>
+                </div>
+              </div>
+              <div class="vignette">
+                <div>
+                  <img class="vignette-photo" src="imatges/p2/dissenyb/003b_low.jpg">
+                </div>
+                <div class="vignette-text">
+                  <p>
+                    Una vegada hagi seleccionat l’ingredient que vol, ha d’introduir la quantitat necessària per la recepta. Això ho pot fer mitjançant un selector que s’afegiran quan l’usuari hagi seleccionat l’ingredient: la mesura.
+                  </p>
+                  <p>
+                    Aquest selector ofereix una llista de mesures de quantitat o pes habituals que l’usuari pot seleccionar. Quan l’usuari ja sap quin tipus de mesura vol, s’afegirà un nou camp a sota per indicar el valor exacte.
+                  </p>
+                  <p>
+                    Depenent del tipus de mesura, el nou camp afegit es comportarà de forma diferent. En el nostre cas, l’usuari ha seleccionat la mesura “Abstracte” i seleccionat en el camp “Val”,  “Un pessic”.
+                  </p>
+                  <p>
+                    Una vegada ja s’ha definit la quantitat de l’ingredient, l’usuari fa clic al botó “Afegir” i quedarà afegit a la recepta.
+                  </p>
+                </div>
+              </div>
+              <div class="vignette">
+                <div>
+                  <img class="vignette-photo" src="imatges/p2/dissenyb/004_low.jpg">
+                </div>
+                <div class="vignette-text">
+                  <p>
+                    L’usuari pot afegir un nou pas de recepta fent clic a “Afegir nou pas de recepta”. Quan fa clic sobre el botó, s’afegeix sota el títol un nou pas de recepta, on pot editar el títol de pas, i la descripció del pas en un camp de text editable.
+                  </p>
+                </div>
+              </div>
+              <div class="vignette">
+                <div>
+                  <img class="vignette-photo" src="imatges/p2/dissenyb/005_low.jpg">
+                </div>
+                <div class="vignette-text">
+                  <p>
+                    En qualsevol moment, l’usuari pot desar la recepta fent clic al botó “Desar”. D’aquesta manera, l’usuari té la seguretat de que els canvis quedaran persistits. Quan es desa, apareix una notificació indicant que la operació s’ha fet satisfactòriament,
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row" id="dissenyescollit">
+      <div class="col-12 col-sm-9 col-lg-9 col-sm-offset-3 col-lg-offset-3" id="dissenyescollit">
+        <h4>Disseny escollit</h4>
+        <p>
+          Hem decidit el <strong>Disseny B</strong> per sobre d l’<strong>A</strong> per múltiples raons:
+        </p>
+        <ul>
+          <li>
+            La primera es la estètica; ens ha semblat que al B, al ser una mica mes minimalista, podria encaixar millor i així respondre de la manera mes òptima a la vuitena heurística de Nielsen.
+          </li>
+          <li>
+            Desprès, ens vam trobar amb el fet de que la pàgina principal era més escalable a diferents mides de pantalla amb al segon disseny, i que les imatges de les receptes cobren molta més importància que no pas el títol de la recepta.
+          </li>
+          <li>
+            A continuació, vam considerar que la forma d’editar la recepta al segon model era molt mes natural, i ergonòmica, ja que segueix una estructura ja vista moltes altres vegades al mon real pel que vam considerar que seria mes comprensible per a l’usuari.
+          </li>
+          <li>
+            Finalment, el pas d’afegir ingredients també el vam considerar una mica rígid, per que no era prou flexible. O s’editen els ingredients, o s’editen els passos de recepta, fent que no es pugui tenir una vista de l’estat de tots dos models de dades. Això fa que resti llibertat alhora de crear la recepta.
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="row" id="prototipenpaper">
+      <h3 class="col-12 col-sm-3 col-lg-3" id="prototip">Prototip en paper</h3>
+      <div class="col-12 col-sm-9 col-lg-9">
+        <div class="clearfix storyboard" style="border: none;">
+          <div class="storyboard-wrapper">
+            <div class="slick-storyboard">
+              <div class="vignette">
+                <div>
+                  <img class="vignette-photo" src="imatges/p2/prototype/001.png">
+                </div>
+              </div>
+              <div class="vignette">
+                <div>
+                  <img class="vignette-photo" src="imatges/p2/prototype/002.png">
+                </div>
+              </div>
+              <div class="vignette">
+                <div>
+                  <img class="vignette-photo" src="imatges/p2/prototype/003.png">
+                </div>
+              </div>
+              <div class="vignette">
+                <div>
+                  <img class="vignette-photo" src="imatges/p2/prototype/004.png">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row falsa" id="avaluacioheuristica-informacio-full-tasques">
+      <div class="col-12 col-sm-3 col-lg-3">
+        <h3 id="heuristica">Avaluació heurística</h3>
+        <ul class="navbar nav" >
+          <li>
+            <a href="#preparacio">Full de tasques</a>
+          </li>
+          <li>
+            <a href="#realització">Realització</a>
+            <ul>
+              <li>
+                <a href="#expert1">Expert 1</a>
+              </li>
+              <li>
+                <a href="#expert2">Expert 2</a>
+              </li>
+              <li>
+                <a href="#expert3">Expert 3</a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#conclusions">Conclusions</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-12 col-sm-9 col-lg-9">
+        <h4 id="preparacio">Informació al full de tasques</h4>
+        <h5>Explicació breu del web</h5>
+        <p>
+          Receptes.cat es un web, enfocat una mica al aspecte social, de publicació, cerca i compartició de receptes de cuina. A aquest aplicatiu podem publicar i veure altres receptes així com valorar-les. També hi ha una mica d’èmfasi a la cerca de receptes mitjançant filtres d’ingredients.
+        </p>
+        <h5>Explicació de les tasques</h5>
+        <p>
+          Durant l’avaluació del prototip de baixa fidelitat vam demanar als usuaris que portessin a terme les senzilles tasques de identificar-se al sistema, partint de la premissa que ja estan donats d’alta a la base de dades. També van haver de generar una recepta nova i cercar-ne una altra.
+        </p>
+      </div>
+    </div>
+
+    <div class="row falsa" id="avaluacioheuristica-realitzacio">
+      <div class="col-12 col-sm-9 col-lg-9 col-sm-offset-3 col-lg-offset-3">
+        <h4 id="realitzacio">Realització</h4>
+        <div class="clearfix storyboard" style="border: none;">
+          <div class="storyboard-wrapper">
+            <div class="slick-storyboard">
+              <div class="vignette">
+                <div class="vignette-photo-wrapper">
+                  <img class="vignette-photo" src="imatges/p2/realitzacio/001.jpg">
+                </div>
+                <div class="vignette-text small">
+                  <p>
+                    Imatge del home amb el login obert
+                  </p>
+                </div>
+              </div>
+              <div class="vignette">
+                <div class="vignette-photo-wrapper">
+                  <img class="vignette-photo" src="imatges/p2/realitzacio/002.jpg">
+                </div>
+                <div class="vignette-text small">
+                  <p>
+                    Imatge on l'avaluador està introduint ingredients
+                  </p>
+                </div>
+              </div>
+              <div class="vignette">
+                <div class="vignette-photo-wrapper">
+                  <img class="vignette-photo" src="imatges/p2/realitzacio/003.jpg">
+                </div>
+                <div class="vignette-text small">
+                  <p>
+                    Imatge on l'avaluador interactua amb l'error de publicació de recepta
+                  </p>
+                </div>
+              </div>
+              <div class="vignette">
+                <div class="vignette-photo-wrapper">
+                  <img class="vignette-photo" src="imatges/p2/realitzacio/004.jpg">
+                </div>
+                <div class="vignette-text small">
+                  <p>
+                    Imatge d'una recepta oberta
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" id="avaluacioheuristica-avaluadors-conclusions">
+      <div class="col-12 col-sm-2 col-lg-2 col-sm-offset-3 col-lg-offset-3">
+        <h4 id="realitzacio">Avaluadors</h4>
+        <h5>Fernando Boullosa García</h5>
+        <h6>
+          <a href="bin/fernando_boullosa.pdf" target="_blank">
+            Informe d'usabilitat
+            <span class="glyphicon glyphicon-file"></span>
+          </a>
+        </h6>
+        <dl>
+          <dt>Puntuació</dt>
+          <dd>9</dd>
+        </dl>
+        <h5>Alejandro Cortes Cabrejas</h5>
+        <h6>
+          <a href="bin/alejandro_cortes.pdf" target="_blank">
+            Informe d'usabilitat
+            <span class="glyphicon glyphicon-file"></span>
+          </a>
+        </h6>
+        <dl>
+          <dt>Puntuació</dt>
+          <dd>9</dd>
+        </dl>
+        <h5>Roger Rodríguez Camprubi</h5>
+        <h6>
+          <a href="bin/roger_rodriguez.pdf" target="_blank">
+            Informe d'usabilitat
+            <span class="glyphicon glyphicon-file"></span>
+          </a>
+        </h6>
+        <dl>
+          <dt>Puntuació</dt>
+          <dd>8</dd>
+        </dl>
+      </div>
+      <div class="col-12 col-sm-7 col-lg-7">
+        <h4 id="conclusions">Conclusions i proposta de redisseny</h4>
+        <p>
+          Després d’analitzar les diferents avaluacions d’experts, n’hem extret les nostres conclusions i veiem recomanable realitzar els següents canvis. 
+        </p>
+        <p>
+          Proposats per <strong>Fernando Boullosa</strong>:
+        </p>
+        <ul>
+          <li>
+            A l’hora de realitzar la pràctica vam donar-nos compte que havíem fet el home amb el botó d’enregistrar-se únicament i sense opció de login. Això ho solucionem substituint el títol del botó (Enregistrat-hi) per un de (Iniciar sessió) i afegir el d’(Enregistrat-hi).<br /> 
+            <em>Citat també per l’avaluador Roger Rodriguez</em>
+          </li>
+          <li>
+            Es va detectar que en publicar una recepta, l’usuari podia no estar segur de què aquesta s’hagi publicat correctament. Això, ho solucionem creant una notificació per confirmar la publicació de la nova recepta o be mostrant la recepta publicada.<br /> 
+            <em>Citat també per l’avaluador Roger Rodriguez</em>
+          </li>
+          <li>
+            Durant l’avaluació detecten un problema amb el botó + situat a la part superior dreta, a l’esquerra de l’usuari, ja que porta a confusió la seva funcionalitat i no queda del tot clara. Tenim l'opció d’eliminar el botó o variant-ne la posició i fent més intuïtiva la seva funcionalitat de cara a l’usuari.<br /> 
+            <em>Citat també per l’avaluador Alejandro Cortés</em>
+          </li>
+          <li>
+            Si es guarda una recepta amb camps necessaris sense completar, llancem el missatge d’error que diu que hi ha camps que no s’han completat però no anomenem quins. Això també creiem que és necessari solucionar, remarcant els camps que no han estat introduïts. 
+          </li>
+        </ul>
+        <p>
+          Proposats per <strong>Alejandro Cortés</strong>:
+        </p>
+        <ul>
+          <li>
+            Si un usuari comet un error a l’hora d’introduir un ingredient aquest, no te la possibilitat d’eliminar-lo. Així que creiem convenient incloure un botó per eliminar un ingredient o modificar-lo. 
+          </li>
+        </ul>
+        <p>
+          Creiem que els tres avaluadors han realitzat una bona feina tant a l’hora de ser crítics i buscar problemes com a l’hora d’alabar les bones propietats. També podem afirmar que van tenir molt bona resposta en el moment de fer l’avaluació. L’explicació dels problemes i les bones propietats han estat clars i concisos i amb exemples iconogràfics presos durant l’exercici d’avaluació. Així que la puntuació del Fernando es d’un 9,i l’Alejandro 9 i la del Roger un 8. 
+        </p>
+        <p>
+          També cal destacar que els dos avaluadors han enviat les respectives avaluacions amb suficient antelació com per poder realitzar el treball.
+        </p>
+        <p>
+          <strong>Com a conclusió de l’avaluació:</strong> Podríem dir que hem comprovat la dificultat de mantenir-se callat i sense intervenir durant aquesta. També s’ha demostrat que en el procés de disseny en paper hi ha situació o casuístiques que no implementés i que al final t’adones que per a l’avaluació són necessàries. L’avaluació en si mateixa ens ha aportat molt, tant a l’hora de veure com els avaluadors portaven a terme la simulació com amb els informes que ens han entregat. Això ens permetrà millorar el nostre projecte per a què sigui més atractiu i ens facilitarà a l’hora de realitzar canvis en el moment previ a la programació.
+        </p>
+      </div>
+    </div>
+
+    <div class="row  darrera" id="contribucions">
+      <h3 class="col-12 col-sm-3 col-lg-3" id="contribucio">Contribució de cada membre de l'equip</h3>
+      <div class="col-12 col-sm-2 col-lg-2 equip">
+        <img class="img-responsive img-rounded" src="imatges/oriol2gran.png" alt="Estudiant 1" >
+        <h4>Oriol Riu Gispert</h4>
+        <ul>
+          <li>Triar tasques a realitzar</li>
+          <li>Disseny esborrany inicial</li>
+          <li>Disseny i maquetació de document en paper</li>
+          <li>Discusió i tria del disseny escollit</li>
+          <li>Estudi d’informes d’avaluació</li>
+          <li>Redaccio document, canvis a realitzar</li>
+          <li>Avaluació grup B5</li>
+        </ul>
+      </div>
+      <div class="col-12 col-sm-2 col-lg-2 equip col-sm-offset-1 col-lg-offset-1">
+        <img class="img-responsive img-rounded" src="imatges/marcGran.png" alt="Estudiant 2" >
+        <h4>Marc Anglés Castillo</h4>
+        <ul>
+          <li>Esborrany del disseny A</li>
+          <li>Avaluació del grup 5</li>
+          <li>impresió del prototip low-fi</li>
+          <li>En grup, millora del disseny A</li>
+        </ul>
+      </div>
+      <div class="col-12 col-sm-2 col-lg-2 equip col-sm-offset-1 col-lg-offset-1">
+        <img class="img-responsive img-rounded" src="imatges/est2.png" alt="Estudiant 3" >
+        <h4>Oriol López Sánchez</h4>
+        <ul>
+          <li>Disseny B</li>
+          <li>Discusió i tria del disseny escollit</li>
+          <li>Creació del prototipus low-fi en ordinador, mitjançant <a href="http://moqups.com/">moqups</a></li>
+          <li>Avaluació del grup B6</li>
+          <li>Manteniment del portfoli</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+  <!-- end content -->
+  <ul class="navbar nav" id="peu">
+    <li id="UB">
+      <a href="http://www.ub.edu">Universitat de Barcelona</a>
+    </li>
+    <li id="Mat">
+      <a href="http://www.mat.ub.edu/">Facultat de Matemàtiques</a>
+    </li>
+    <li id="FHIC">
+      <a href="http://www.ub.edu/fhic">Factors Humans</a>
+    </li>
+  </ul>
+  
+  <div class="modal-review modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Enviar opini&oacute;</h4>
+        </div>
+        <div class="modal-body">
+          <form class="form-review" role="form">
+            <div class="form-group">
+              <label for="name">Nom</label>
+              <input type="text" class="form-control" name="name" placeholder="Escriu el teu nom"></div>
+            <div class="form-group">
+              <label for="surname">Cognom</label>
+              <input type="text" class="form-control" name="surname" placeholder="Escriu els teus cognoms"></div>
+            <div class="form-group">
+              <label for="surname">Edat</label>
+              <input type="number" class="form-control" name="age" placeholder="Escriu la teva edat"></div>
+            <div class="form-group">
+              <label for="email">Adreça electrònica</label>
+              <input type="email" class="form-control" name="email" placeholder="Escriu l'adreça electrònica"></div>
+            <div class="form-group">
+              <label for="email">Has trobat fàcil la navegació per la Web?</label>
+              <input type="number" class="form-control x-rating-control" data-min="1" data-max="5" name="easy_navigation"></div>
+            <div class="form-group">
+              <label for="email">
+                Diries que aquesta Web facilita la teva experiència d'usuari quan et connectes des de diferents dispositius?
+              </label>
+              <input type="number" class="form-control x-rating-control" data-min="1" data-max="5" name="easy_mobile_ux"></div>
+            <div class="form-group">
+              <label for="email">Has trobat a faltar alguna cosa a la Web?</label>
+              <textarea class="form-control" name="additional_feedback" rows="3"></textarea>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel·lar</button>
+          <button type="button" class="btn btn-primary button-send-review">Enviar valoració</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+            </html>

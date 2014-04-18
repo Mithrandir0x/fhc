@@ -1,0 +1,333 @@
+﻿<!DOCTYPE html>
+<html lang="ca">
+<head>
+<title>Pràctica 1. Recerca de les necessitats de l'usuari (FHIC)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" >
+<meta charset="UTF-8" >
+<meta name="author" content="Ribera, Mireia">
+<meta name="description" content="Pàgina de la pràctica 1, recerca de les necessitats de l'usuari, del portafoli de mostra de l'assignatura Factors Humans i Computació del Grau d'Enginyeria Informàtica a la UB">
+<meta name="keywords" content="disseny centrat en l'usuari, factors humans">
+<link href="css/bootstrap.css" rel="stylesheet" media="screen" >
+<link href="css/glyphicons.css" rel="stylesheet" media="screen" >
+<link href="css/fhic.css" rel="stylesheet" media="screen" >
+<link rel="shortcut icon" href="imatges/favicon.ico">
+<link rel="apple-touch-icon" href="imatges/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="imatges/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="imatges/apple-touch-icon-114x114.png">
+</head>
+<body>
+<script src="js/jquery-1.9.1.js" type="text/javascript"></script>
+<script src="js/bootstrap.js" type="text/javascript"></script>
+<script src="js/bootstrap-rating-input.js" type="text/javascript"></script>
+<script src="js/portfolio.js" type="text/javascript"></script>
+<ul class="nav nav-pills">
+  <li><a href="inici.htm">Inici</a></li>
+  <li><a href="P0proposta.htm">P0.Proposta</a></li>
+  <li class="active"><a>P1.Necessitats</a></li>
+  <li><a href="P2heuristics.htm">P2.Heurístiques</a></li>
+  <li><a href="P3prototip.htm">P3.Prototip</a></li>
+  <li><a href="P4test.htm">P4.Test</a></li>
+  <li><a href="web.htm">Web</a></li>
+</ul>
+<h1>
+Laboratori FHIC Curs 2013-2014 Grup B4
+</h1>
+<div class="row">
+<div class="col-6 col-sm-6 col-lg-2">
+<img src="imatges/analisi.png" alt="fases d'anàlisi" class="fase">
+</div>
+<div class="col-6 col-sm-6 col-lg-2">
+<ul class="navbar nav" >
+<li><a href="#tipususuari">Tipus d'usuari</a></li>
+<li><a href="#personatge-comensals">Personatges</a></li>
+<li><a href="#tasques">Tasques</a></li>
+<!-- li><a href="#opcional">Opcional</a></li -->
+<li><a href="#contribucio">Equip</a></li>
+</ul>
+</div>
+<h2 class="col-12 col-sm-6 col-lg-offset-2 col-lg-6">
+Pràctica 1. Recerca de les necessitats de l'usuari<br >Nom del web: <strong>Receptes.cat</strong><br />
+<button type="button" style="margin-top: 16px;" class="btn btn-info modal-review-button">Feedback!</button>
+</h2>
+</div>
+<div id="content">
+ <div class="row primera"> 
+  <h3 class="col-12 col-sm-3 col-lg-3" id="tipususuari">
+  Tipus d'usuaris
+  </h3>
+  <div class="col-12 col-sm-9 col-lg-9" >
+    <p>
+      Aquesta web està destinada a dos perfils d'usuari, el que busca una recepta i el
+      que vol compartir-la. Tot seguit podem veure el resum de característiques del grup
+      d'usuaris en la que podrem veure les seves necessitats.
+    </p>
+<table summary="Característiques principals de cada tipus d'usuari">
+ <thead>
+  <tr>
+   <th></th>
+   <th id="ColHdr2">Començals</th>
+   <th id="ColHdr3">Cuiners</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+   <th id="RowHdr2">Edat</th>
+   <td headers="ColHdr2 RowHdr2">12 a 80</td>
+   <td headers="ColHdr3 RowHdr2">12 a 80</td>
+  </tr>
+  <tr>
+   <th id="RowHdr3">Gènere</th>
+   <td headers="ColHdr2 RowHdr3">Masculí i Femení</td>
+   <td headers="ColHdr3 RowHdr3">Masculí i Femení</td>
+  </tr>
+  <tr>
+   <th id="RowHdr4">Nivell educatiu</th>
+   <td headers="ColHdr2 RowHdr4">Nivell Mínim</td>
+   <td headers="ColHdr3 RowHdr4">Nivell Mínim</td>
+  </tr>
+  <tr>
+   <th id="RowHdr5" >Experiència amb tecnologia informàtica</th>
+   <td headers="ColHdr2 RowHdr5">Experiència bàsica en la navegació per les xarxes</td>
+   <td headers="ColHdr3 RowHdr5">Experiència bàsica en la navegació per les xarxes</td>
+  </tr>
+  <tr>
+   <th id="RowHdr5_1" >Experiència en cuina</th>
+   <td headers="ColHdr2 RowHdr5">Pot ser des de un  neòfit en la cuina fins a un gurmet</td>
+   <td headers="ColHdr3 RowHdr5">Pot tenir des de nocions bàsiques en la cuina fins a ser un expert</td>
+  </tr>
+  <tr>
+   <th id="RowHdr7" >Motivació</th>
+   <td headers="ColHdr2 RowHdr7">Necessitat d’una recepta del nivell de dificultat desitjat i amb la opció de triar els ingredients dels que disposa</td>
+   <td headers="ColHdr3 RowHdr7">Publicar i compartir les receptes de forma altruista per oferir diferents recursos de cuina a persones que ho requereixen</td>
+  </tr>
+  <tr>
+   <th id="RowHdr8">Actitud</th>
+   <td headers="ColHdr2 RowHdr8">Variarà depenent de les necessitats del moment i de l’experiència anterior</td>
+   <td headers="ColHdr3 RowHdr8">Dependrà de la dificultat que tingui el fet d’afegir una recepta. Serà negativa si la dificultat es elevada ja que es comparteix de forma altruista.</td>
+  </tr>
+ </tbody>
+</table>  
+</div>
+ </div>
+ <div class="row" style="border: 0;"> 
+  <h3 class="col-12 col-sm-2 col-lg-2" id="personatge-comensals">
+  Personatges ficticis<br />
+  Comensals
+  </h3>
+  <div class="col-12 col-sm-2 col-lg-5 personatge">
+    <img src="imatges/home.jpg" alt="Josep Serra Piu" class="img-responsive img-thumbnail">
+    <h4>Josep Serra Piu (12 a 40 anys)</h4>
+    <p>Josep és un home de 28 anys nascut a Catalunya i estudiant d’història. És un home solter, i li agrada gaudir de la gastronomia. No té gaires coneixements en informàtica però si utilitza internet sovint. Necessita receptes per tal de poder variar una mica la seva dieta diària. Ell no te dificultats a la cuina però no disposa de gaires ingredients, ja que té el rebost  una mica abandonat i no té temps d’anar a comprar. 
+</p>
+   </div>
+  <div class="col-12 col-sm-5 col-lg-5 personatge">
+    <img src="imatges/dona.jpg" alt="Maria Ferrer Terra" class="img-responsive img-thumbnail">
+    <h4>Maria Ferrer Terra (40 a 80 anys)</h4>
+    <p>La Maria és una dona de 55 anys nascuda a Reus casada i amb 2 fills i busca una recepta diferent per poder fer en un dia especial. Aquesta hauria de ser elaborada i amb la que pugui sorprendre als seus invitats, per tant, no té por de la dificultat alhora d’elaborar la recepta que vol. Donat que treballa com a administrativa a una empresa dedicada al desenvolupament de software, té certes competències en l’àmbit informàtic.</p>
+   </div>
+</div>
+ <div class="row"> 
+  <h3 class="col-12 col-sm-2 col-lg-2" id="personatge-cuiners">
+  Personatges ficticis<br />
+  Cuiners
+  </h3>
+  <div class="col-12 col-sm-5 col-lg-5 personatge">
+    <img src="imatges/jove.jpg" alt="Pol Serra Miranda" class="img-responsive img-thumbnail">
+    <h4>Pol Serra Miranda (12 a 40 anys)</h4>
+    <p>En Pol te 15 anys i és nascut a Terrassa. És estudiant de secundaria i vol compartir una recepta que li ha ensenyat la seva avia. Té molta agilitat en l’ús de les noves tecnologies, i no té cap reticència en capficar-se amb qualsevol aplicació web o mòbil nova que hagi sortit. Tot i així, no està molt versat en termes culinaris, però en vol aprendre.</p>
+   </div>
+  <div class="col-12 col-sm-5 col-lg-5 personatge">
+    <img src="imatges/avia.jpg" alt="Teresa Muntada Martí" class="img-responsive img-thumbnail">
+    <h4>Teresa Muntada Martí (40 a 80 anys)</h4>
+    <p>La Teresa es una dona de 75 anys nascuda a Vinarós. Està jubilada i actualment fa un curs d’us d’internet. Li agrada molt la cuina i vol compartir i guardar les receptes que té apuntades en una llibreta i que ha anat acumulant al llarg de la vida. Amb el temps ha anat una artritis en les mans que fa que li sigui difícil treballar amb el teclat i el ratolí.</p>
+   </div>
+</div>
+
+<div class="row falsa">
+  <div class="col-12 col-sm-3 col-lg-3" >
+  <h3 id="tasques">
+  Tasques
+  </h3>
+  <ul class="navbar nav" >
+  <li><a href="#searchrecipe">Cercar Recepta</a></li>
+  <li><a href="#createrecipe">Crear Recepta</a></li>
+  <li><a href="#raterecipe">Valorar Recepta</a></li>
+  </ul>
+  </div>
+  <div class="col-12 col-sm-4 col-lg-4 noticia" id="searchrecipe" >
+    <h4>Cercar Recepta</h4>
+    <p><strong>Descripció:</strong> Trobar receptes que li agradin a l’usuari amb els ingredients que vol.</p>
+    <p><strong>Precondicions:</strong> L’usuari vol fer una recepta, i pot tenir o no clar els ingredients que vol, o té una idea més o menys definida del que vol.</p>
+    <p><strong>Subtasques:</strong> <button type="button" class="modal-hta-diagram-button" data-modal=".hta-search-recipe">Veure diagrama</button></p>
+    <p><strong>Requeriments usabilitat:</strong></p>
+<ul><li>Alhora de definir els criteris de cerca, té que ser prou simple com per que qualsevol persona els pugui entendre, evitant confusions alhora d’interpretar aquests criteris.</li>
+<li>S’ha d’ajudar a l’usuari, en forma de suggeriments, per que pugui cercar més ràpidament, i tingui un “feedback” quasi be immediat dels resultats.</li>
+<li>Ha de ser un procés fàcil d’aprendre.</li></ul>
+
+  </div>
+  <div class="col-12 col-sm-4 col-lg-4 col-sm-offset-1 col-lg-offset-1 noticia" id="createrecipe" >
+    <h4>Crear Recepta</h4>
+    <p><strong>Descripció:</strong> Publicar una recepta a l’aplicació, amb els ingredients necessaris.</p>
+    <p><strong>Precondicions:</strong> L’usuari té clar que vol publicar una recepta, quins ingredients intervenen en aquesta i com s’ha de preparar.</p>
+    <p><strong>Subtasques:</strong> <button type="button" class="modal-hta-diagram-button" data-modal=".hta-create-recipe">Veure diagrama</button></p>
+    <p><strong>Requeriments usabilitat:</strong> Viverra vitae, Maecenas aliquet mollis lectus. Vivamus consectetuer risus et tortor.</p>
+<ul><li>Ha de ser senzill incloure ingredients a una recepta, com també canviar-los, o treure’ls si ho creu necessari.</li>
+<li>La interfície ha de ser intuïtiva per que l’usuari tingui clar quan està incloent un ingredient, o està determinant un pas de la preparació de la recepta.</li>
+<li>Ha de ser eficient, en quant a que s’han de fer el mínim de passos possibles per fer una recepta, i publicar-la.</li>
+<li>És preferible fer la validació en viu, i aquesta validació no pot ser obstructiva, i té que ajudar a l’usuari a entendre quin error està cometent.</li>
+<li>S’ha de minimitzar el màxim possible els errors que pugui cometre un usuari al introduir informació.</li>
+<li>Si l’usuari vol afegir fotografies de la preparació de la recepta, té que ser còmode i simple en execució.</li>
+<li>És molt important que la presentació dels ingredients, no només tinguin com a propòsit el fet de ser un indicatiu visual de l’ingredient, si no a que sigui atractiu.</li>
+<li>És molt important de donar un vocabulari consistent de mètodes de preparació disponibles, de forma que siguin concises i coherents.</li></ul>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 col-sm-4 col-lg-4 noticia col-sm-offset-3 col-lg-offset-3" id="raterecipe" >
+    <h4>Valorar Recepta</h4>
+    <p><strong>Descripció:</strong> Donada una recepta publicada, es vol donar una opinió o un suggeriment sobre la recepta.</p>
+    <p><strong>Precondicions:</strong> L’usuari ha trobat una recepta que li agrada (o no), però que l’ha preparat i/o l’ha tastat. </p>
+    <p><strong>Subtasques:</strong> <button type="button" class="modal-hta-diagram-button" data-modal=".hta-rate-recipe">Veure diagrama</button></p>
+    <p><strong>Requeriments usabilitat:</strong></p>
+<ul><li>S’ha de reduir el temps de la valoració</li>
+<li>L’interfície ha de ser intuitiva i ha de quedar clar la possibilitat de valoració de receptes.</li>
+<li>Ha de ser fàcil de fer i que no requereixi temps pel usuari.</li>
+<li>S’ha d’evitar errors en la valoració i ha de quedar clar el valor que estem donant.</li></ul>
+  </div>
+ </div>   
+
+ <!-- div class="row"> 
+  <h3 class="col-12 col-sm-3 col-lg-3" id="opcional">
+  Opcional: observacions i entrevistes
+  </h3>
+  <div class="col-12 col-sm-9 col-lg-9" >
+  <ul>
+  <li>Alumne: <a href="ObservacioEntrevistaUsuari1.pdf">ObservacioEntrevista1</a>, <a href="ObservacioEntrevistaUsuari2.pdf">ObservacioEntrevista2</a>, <a href="ObservacioEntrevistaUsuari3.pdf">ObservacioEntrevista3</a>.</p></li>
+  <li>Professor: <a href="ObservacioEntrevistaUsuari4.pdf">ObservacioEntrevista4</a>, <a href="ObservacioEntrevistaUsuari5.pdf">ObservacioEntrevista5</a>, <a href="ObservacioEntrevistaUsuari6.pdf">ObservacioEntrevista6</a>.</p></li>
+  <li>PAS: <a href="ObservacioEntrevistaUsuari7.pdf">ObservacioEntrevista7</a>, <a href="ObservacioEntrevistaUsuari8.pdf">ObservacioEntrevista8</a>, <a href="ObservacioEntrevistaUsuari9.pdf">ObservacioEntrevista9</a>.</li>
+  </ul>
+  </div>
+</div -->
+
+<div class="row  darrera"> 
+  <h3 class="col-12 col-sm-3 col-lg-3" id="contribucio">
+  Contribució de cada membre de l'equip
+  </h3>
+  <div class="col-12 col-sm-2 col-lg-2 equip">
+    <img class="img-responsive img-rounded" src="imatges/oriol2gran.png" alt="Estudiant 1" >
+    <h4>Oriol Riu Gispert</h4>
+    <p>Estudi de personatges ficticis de cerca i creació de recepta i analisi de tasques corresponents. Posta en comú final entre els components del grup.</p>
+   </div>
+   <div class="col-12 col-sm-2 col-lg-2 equip col-sm-offset-1 col-lg-offset-1">
+    <img class="img-responsive img-rounded" src="imatges/marcGran.png" alt="Estudiant 2" >
+    <h4>Marc Anglés Castillo</h4>
+    <p>Estudi de personatges ficticis de cerca i creació de recepta i analisi de tasques corresponents. Posta en comú final entre els components del grup.</p>
+   </div>
+   <div class="col-12 col-sm-2 col-lg-2 equip col-sm-offset-1 col-lg-offset-1">
+    <img class="img-responsive img-rounded" src="imatges/est2.png" alt="Estudiant 3" >
+    <h4>Oriol López Sánchez</h4>
+    <p>Estudi de personatges ficticis de cerca i creació de recepta i analisi de tasques corresponents. Posta en comú final entre els components del grup.</p>
+   </div>   
+ </div>
+ </div><!-- end content -->
+<ul class="navbar nav" id="peu">
+<li id="UB"><a href="http://www.ub.edu">Universitat de Barcelona</a></li>
+<li id="Mat"><a href="http://www.mat.ub.edu/">Facultat de Matemàtiques</a></li>
+<li id="FHIC"><a href="http://www.ub.edu/fhic">Factors Humans</a></li>
+</ul>
+<div class="modal-review modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Enviar opini&oacute;</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-review" role="form">
+          <div class="form-group">
+            <label for="name">Nom</label>
+            <input type="text" class="form-control" name="name" placeholder="Escriu el teu nom">
+          </div>
+          <div class="form-group">
+            <label for="surname">Cognom</label>
+            <input type="text" class="form-control" name="surname" placeholder="Escriu els teus cognoms">
+          </div>
+          <div class="form-group">
+            <label for="surname">Edat</label>
+            <input type="number" class="form-control" name="age" placeholder="Escriu la teva edat">
+          </div>
+          <div class="form-group">
+            <label for="email">Adreça electrònica</label>
+            <input type="email" class="form-control" name="email" placeholder="Escriu l'adreça electrònica">
+          </div>
+          <div class="form-group">
+            <label for="email">Has trobat fàcil la navegació per la Web?</label>
+            <input type="number" class="form-control x-rating-control" data-min="1" data-max="5" name="easy_navigation">
+          </div>
+          <div class="form-group">
+            <label for="email">Diries que aquesta Web facilita la teva experiència d'usuari quan et connectes des de diferents dispositius?</label>
+            <input type="number" class="form-control x-rating-control" data-min="1" data-max="5" name="easy_mobile_ux">
+          </div>
+          <div class="form-group">
+            <label for="email">Has trobat a faltar alguna cosa a la Web?</label>
+            <textarea class="form-control" name="additional_feedback" rows="3"></textarea>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel·lar</button>
+        <button type="button" class="btn btn-primary button-send-review">Enviar valoració</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-hta-diagram hta-search-recipe modal fade" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Tasca: Cercar Recepta</h4>
+      </div>
+      <div class="modal-body">
+        <div class="mxgraph" style="position:relative;overflow:hidden;width:1592px;height:298px;display:inline-block;_display:inline;"><div style="width:1px;height:1px;overflow:hidden;">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</div></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Tancar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-hta-diagram hta-create-recipe modal fade" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Tasca: Crear Recepta</h4>
+      </div>
+      <div class="modal-body">
+        <div class="mxgraph" style="position:relative;overflow:hidden;width:1392px;height:291px;display:inline-block;_display:inline;"><div style="width:1px;height:1px;overflow:hidden;">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</div></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Tancar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-hta-diagram hta-rate-recipe modal fade" data-backdrop="static">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Tasca: Valorar Recepta</h4>
+      </div>
+      <div class="modal-body">
+        <div class="mxgraph" style="position:relative;overflow:hidden;width:722px;height:159px;display:inline-block;_display:inline;"><div style="width:1px;height:1px;overflow:hidden;">1ZfLb9s8DMD/mmD7Dgn8yPOYdO22wz4UKLDHUbEUR6hseYqcR//6kjYVW3EKtGu3tjkkEhVK5I+UKPXii2z/2bBi/U1zoXpRwPe9+FMviqZBAN8oOJwIUiN5LQpJUEouNp7Iaq2sLHxhovNcJNaTrbTyJytYKjqCm4SprvSH5HZN0nA8awa+CJmuaZ1pNK4HNvbg5uBixUpl+5UIxnA4Y24ucnMf1N0ooJkPJJhO3Uq5Z9Kd1pknMGIj72hJmnQlySzqL7XhwngiJfPbNrf4EoJktAZFbGX7C6EwUC4ItdrVA6NHXEbk3tIPKUTk7Zap0tk+gP53prRhpnIrEYVlHaq7tbTipmAJ9neQU714wZRMkVICq4OfHVvIvK0wVlDiNU5DZgqdCWsOGI56dBQTJpeVs8Gs9ZmS9btWajiw61ZWDEnGiHR6XKhBAw2ic56Us6RFKkRSX3Muk4pUUea2ZInsXcS9RYx7SWCAAd3rQoSU9qjNJh7TcDr2hztMo/BvMXW+NEwjn2lFj8uVTGAHM+tBLYwALi3grwF3OPEz9BE0HbkXp0lnW4tm7NMEnyBDVYbu1hDhtIz3DMDoQuZN5m700ryN5J2Mn8o3dBFp83WzPIsvpViLb4eJyPncGL2DXq5zEC7EXtqf0A0GI+r9gl6I7RwMaA1hF8fI1DPYNro0Fe3WyW2ZSQX9ze0nwb2q2oVrhGJWbv0i+yw2wzfPhlRfjk2lCh4x1HJ/KLTM7aY18zUKWhVtdpLPk8lg2MnnY7k+0Y7D0eO1oVFb10Tw6ObjgkqLveGgkkHvOqjT4T8NKl2QvaCOFQBdcLn1gjv+XeI9dIFlo08n+xyrglihuPkDtFL6rSaSZ6eBq67ou0MZ5wkHUH9QK1iy5DY1usx5P9Fw86zHTbr8GI0ADjgVtBv/nV39uqpWcG1H3SusPgEEGlXQHiyFtXVACAS+xSCrvO/44QveOaH/4ckCJX4+g1wO4A0Hew7G4Z1Swao2HBqmPqyRZFLKnNk/wOb/8+TAQFTdi0K8wCsBXFPUnAYyyTnqLNY2g1yuDpDujeMFnhiz0WBysgEjfwOeeWbAf+AM617jSPaEUgrd5rlX7+fmgR5f3gM=</div></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Tancar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://www.draw.io/embed.js" type="text/javascript"></script>
+</body>
+</html>
