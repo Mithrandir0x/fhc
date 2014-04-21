@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html ng-app="receptes">
+  <head>
+    <title>receptes.cat</title>
+    <meta http-equiv="content-type" content="text/html"; charset="UTF-8" />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <link href='http://fonts.googleapis.com/css?family=Gochi+Hand' rel='stylesheet' type='text/css'>
+    <link href="lib/bootstrap/css/3.1.1.css" rel="stylesheet" media="screen" >
+    <link href="lib/animate.css" rel="stylesheet" media="screen" >
+    <link href="lib/receptes/styles.css" rel="stylesheet" media="screen" >
+    <script type="text/javascript" src="lib/jquery.js"></script>
+    <script type="text/javascript" src="lib/angular.js"></script>
+    <script type="text/javascript" src="lib/angularui/ui-bootstrap-tpls-0.10.0.js"></script>
+    <script type="text/javascript" src="lib/noty/2.2.2.packaged.js"></script>
+    <script type="text/javascript" src="lib/receptes/app.js"></script>
+  </head>
+  <body ng-controller="HomeController" class="bg-pattern-sativa">
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <form class="navbar-form navbar-left search-bar" role="search">
+          <div class="form-group">
+            <div class="input-group">
+              <input type="text" ng-model="searchText" class="form-control" placeholder="Cercar receptes">
+              <div class="input-group-btn">
+                <button type="submit" class="btn btn-default">
+                  <span class="caret"></span>
+                </button>
+                <button type="submit" class="btn btn-default">
+                  <span class="glyphicon glyphicon-search"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+        <a class="navbar-brand" href="#">receptes.cat</a>
+        <form ng-show="!login" class="navbar-form navbar-right" role="login">
+          <button class="btn btn-primary" ng-click="openLoginForm()">
+            Iniciar sessió
+            <span class="glyphicon glyphicon-log-in"></span>
+          </button>
+        </form>
+        <div ng-show="login" class="navbar-right user-area">
+          <img ng-src="{{ userAvatar }}" class="img-rounded user-avatar">
+          <span class="user-name">{{ userName }}</span>
+        </div>
+      </div>
+    </nav>
+    <div class="container-fluid" style="text-align: center;">
+      <div class="card-container" style="margin-left: auto; margin-right: auto;">
+        <div class="card" ng-click="viewRecipe(recipeCardInfo)" ng-repeat="recipeCardInfo in recipes">
+          <div class="card-base">
+            <img class="card-image" ng-src="{{ recipeCardInfo.image }}">
+          </div>
+          <div class="card-overlay">
+            <h3>{{ recipeCardInfo.title }}</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

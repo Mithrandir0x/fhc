@@ -1,0 +1,23 @@
+[
+  {
+    "title": "Torrijas",
+    "authorName": "Usuari",
+    "authorId": "1",
+    "images": [
+      "res/img/torrija-000-low.jpg"
+    ],
+    "ingredients": [
+      {
+        "type": 0,
+        "value": 0
+      }
+    ],
+    "steps": [
+      {
+        "title": "",
+        "description": "",
+        "images": []
+      }
+    ]
+  }
+]
