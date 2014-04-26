@@ -4,6 +4,18 @@ body
     padding-top: 70px;
 }
 
+/*
+Nice way to have placeholder text when no text has been written
+in a contenteditable element.
+
+Taken from: http://codepen.io/flesler/pen/AEIFc
+ */
+[contenteditable]:empty:before
+{
+  content: attr(placeholder);
+  opacity: 0.6;
+}
+
 .bg-pattern-food
 {
     background-image: url('./img/bg_patterns/food.png');
@@ -93,4 +105,54 @@ body
 .user-area .user-avatar
 {
     width: 32px;
+}
+
+.card-view .modal-dialog
+{
+    width: 90%;
+}
+
+.recipe-image-area
+{
+    margin-bottom: 16px;
+}
+
+.recipe-image-area .photo-placeholder
+{
+    border: 1px solid #f0f;
+    position: relative;
+    text-align: center;
+    padding: 32px;
+}
+
+.recipe-image-area .photo-placeholder .icon
+{
+    font-size: 48px;
+}
+
+.recipe-properties-area .recipe-customers
+{
+    margin-bottom: 16px;
+}
+
+.recipe-properties-area .recipe-ingredients
+{
+    text-align: center;
+}
+
+.dropbox
+{
+    display: none;
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    -webkit-transition: all 0.3s ease-in-out;
+    width: 100%;
+}
+
+.dropbox.hover
+{
+    box-shadow: inset 0 0 32px #4EA6EA;
+    -webkit-transition: all 0.3s ease-in-out;
 }

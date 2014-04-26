@@ -6,11 +6,17 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <link href='http://fonts.googleapis.com/css?family=Gochi+Hand' rel='stylesheet' type='text/css'>
     <link href="lib/bootstrap/css/3.1.1.css" rel="stylesheet" media="screen" >
+    <link href="lib/ionicons/css/ionicons.css" rel="stylesheet" media="screen" >
+    <link href="lib/select2/select2.css" rel="stylesheet" media="screen" >
+    <link href="lib/select2/select2-bootstrap-3.css" rel="stylesheet" media="screen" >
     <link href="lib/animate.css" rel="stylesheet" media="screen" >
     <link href="lib/receptes/styles.css" rel="stylesheet" media="screen" >
     <script type="text/javascript" src="lib/jquery.js"></script>
     <script type="text/javascript" src="lib/angular.js"></script>
+    <script type="text/javascript" src="lib/select2/select2.js"></script>
+    <script type="text/javascript" src="lib/select2/select2_locale_ca.js"></script>
     <script type="text/javascript" src="lib/angularui/ui-bootstrap-tpls-0.10.0.js"></script>
+    <script type="text/javascript" src="lib/angularui/ui-select2-0.0.5.js"></script>
     <script type="text/javascript" src="lib/noty/2.2.2.packaged.js"></script>
     <script type="text/javascript" src="lib/receptes/app.js"></script>
   </head>
@@ -33,8 +39,12 @@
           </div>
         </form>
         <a class="navbar-brand" href="#">receptes.cat</a>
-        <form ng-show="!login" class="navbar-form navbar-right" role="login">
-          <button class="btn btn-primary" ng-click="openLoginForm()">
+        <form class="navbar-form navbar-right" role="login">
+          <button ng-show="!login" class="btn btn-success" ng-click="createRecipe()">
+            Crear nova recepta
+            <span class="glyphicon glyphicon-plus"></span>
+          </button>
+          <button ng-show="!login" class="btn btn-primary" ng-click="openLoginForm()">
             Iniciar sessió
             <span class="glyphicon glyphicon-log-in"></span>
           </button>
@@ -47,7 +57,7 @@
     </nav>
     <div class="container-fluid" style="text-align: center;">
       <div class="card-container" style="margin-left: auto; margin-right: auto;">
-        <div class="card" ng-click="viewRecipe(recipeCardInfo)" ng-repeat="recipeCardInfo in recipes">
+        <div class="card" ng-click="viewRecipe($event, recipeCardInfo)" ng-repeat="recipeCardInfo in recipes">
           <div class="card-base">
             <img class="card-image" ng-src="{{ recipeCardInfo.image }}">
           </div>

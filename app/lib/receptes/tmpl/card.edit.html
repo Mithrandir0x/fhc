@@ -1,0 +1,76 @@
+<div class="modal-body">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="recipe-image-area">
+          <img ng-show="mainPhoto" class="recipe-photo" ng-src="{{ mainPhoto }}">
+          <div class="photo-placeholder" ng-show="!mainPhoto">
+            <div class="photo-placeholder-border" style="border: 1px solid #f0f; display: inline-block; padding: 16px;">
+              <i class="icon ion-images" style="font-size: 48px;"></i><br />
+              <span class="help-text">
+                Arrosega una imatge<br />
+                des de l'escriptori
+              </span>
+            </div>
+            <dropbox on-drop="setMainRecipePhoto"></dropbox>
+          </div>
+        </div>
+        <div class="recipe-properties-area">
+          <div class="customers">
+            Ingredients per a: <input type="number" ng-model="recipe.customersAmount" min="1" required>
+          </div>
+          <div class="ingredient-list">
+            <span>Llista d'ingredients:</span>
+            <ul>
+              <li ng-repeat="i in recipe.ingredients">
+                {{ i }}
+              </li>
+            </ul>
+          </div>
+          <div class="recipe-ingredients">
+            <button ng-show="!addingNewIngredient" class="btn btn-primary" ng-click="openAddingNewIngredient()">
+              <span class="glyphicon glyphicon-plus"></span>
+              Afegir nou ingredient
+            </button>
+            <div ng-show="addingNewIngredient" style="text-align: right;">
+              <input type="hidden" ui-select2="s2Config" ng-model="newIngredient.name" placeholder="Escriu l'ingredient que vols afegir" style="width: 100%; margin-bottom: 16px; text-align: left;">
+              <div class="ingredient-value-type" ng-show="newIngredient.name">
+                <div class="form-group">
+                  <div class="input-group select2-bootstrap-prepend" style="margin-bottom: 16px;">
+                    <div class="input-group-addon">
+                      Mesura
+                    </div>
+                    <input type="hidden" class="form-control" ui-select2="s2Config2" placeholder="Seleccioni la mesura" ng-model="newIngredient.measure" style="text-align: left;">
+                  </div>
+                  <div class="input-group" ng-show="newIngredient.measure">
+                    <div class="input-group-addon">
+                      Quantitat
+                    </div>
+                    <input type="number" class="form-control" ng-model="newIngredient.quantity">
+                  </div>
+                </div>
+              </div>
+              <button class="btn btn-default btn-sm" ng-show="newIngredient.name && newIngredient.measure" ng-click="createNewIngredient(newIngredient)">
+                <span class="glyphicon glyphicon-remove"></span>
+                Crear nou ingredient
+              </button>
+              <button class="btn btn-default btn-sm" ng-click="closeNewIngredientEditor()">
+                <span class="glyphicon glyphicon-remove"></span>
+                Cancel·lar
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div>
+           <button class="btn btn-default btn-sm" ng-click="saveRecipe()">
+              <span class="glyphicon glyphicon-remove"></span>
+              Guardar
+            </button>
+        </div>
+        <h1 contenteditable placeholder="Títol de recepta" ng-model="recipe.title"></h1>
+      </div>
+    </div>
+  </div>
+</div>

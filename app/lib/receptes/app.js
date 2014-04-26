@@ -2,33 +2,70 @@
 (function(module){
 
   module.factory('DB', ['$http', '$q', function($http, $q){
-    var recipes = [];
-    var users = [];
+    var db = {
+      recipes: [],
+      users: [],
+      ingredients: [],
+      measures: [
+        { id: 0, text: 'Abstracta' },
+        { id: 1, text: 'Pes (gr)'}
+      ]
+    }
 
     var DataBaseService = {
-      getData: function(){
-        var promiseA = $http.get('res/data/recipes.json');
-        var promiseB = $http.get('res/data/users.json');
-        
-        promiseA.success(function(data){
-          recipes = data;
-        });
-        
-        promiseB.success(function(data){
-          users = data;
-        });
+      initialize: function(){
+        var onSuccess = function(promise, resource, post){
+          promise.success(function(data){
+            if ( post )
+              post(data);
+            else
+              db[resource] = data;
+          });
+        };
 
-        return $q.all([promiseA, promiseB]);
+        var fetch = function(url, resource, post){
+          var promise = $http.get(url);
+          onSuccess(promise, resource, post);
+          return promise;
+        };
+
+        var promiseA = fetch('res/data/recipes.json', 'recipes');
+        var promiseB = fetch('res/data/users.json', 'users');
+        var promiseC = fetch('res/data/ingredients.json', 'ingredients',
+          function(data){
+            data.forEach(function(name, i){
+              db.ingredients.push({
+                id: i,
+                text: name
+              });
+            });
+          }
+        );
+
+        return $q.all([promiseA, promiseB, promiseC]);
       },
       getAllRecipes: function(){
-        return recipes;
+        return db.recipes;
+      },
+      getAllIngredients: function(){
+        return db.ingredients;
+      },
+      getMeasures: function(){
+        return db.measures;
       },
       getUserByName: function(name){
-        var l = users.filter(function(u){
+        var l = db.users.filter(function(u){
           return angular.lowercase(u.name) == angular.lowercase(name);
         });
 
         return l[0];
+      },
+      getIngredientsThatContains: function(text){
+        var l = db.ingredients.filter(function(i){
+          return i.text.indexOf(text) != -1;
+        });
+
+        return l;
       }
     };
 
@@ -107,6 +144,115 @@
 
 (function(module){
 
+  module.directive("contenteditable", function() {
+    return {
+      restrict: "A",
+      require: "ngModel",
+      link: function(scope, element, attrs, ngModel) {
+        function read() {
+          ngModel.$setViewValue(element.html());
+        };
+
+        ngModel.$render = function() {
+          element.html(ngModel.$viewValue || "");
+        };
+
+        element.bind("blur keyup change", function() {
+          scope.$apply(read);
+        });
+      }
+    };
+  });
+
+  module.directive('dropbox', function(){
+    return {
+      template: '<div class="dropbox"></div>',
+      replace: true,
+      transclude: true,
+      restrict: 'E',
+      scope: {
+        allowedFiletypes: '@',
+        onEnter: '=',
+        onHover: '=',
+        onLeave: '=',
+        onEnd: '=',
+        onDrop: '=',
+        global: '@'
+      },
+      link: function(scope, iElement, attr){
+        var stop = function(e){
+          e.stopPropagation();
+          e.preventDefault();
+        };
+
+        var parent = iElement.parent()[0];
+
+        parent.addEventListener('dragenter', function(e){
+          iElement.css('display', 'block');
+          setTimeout(function(){iElement.addClass('hover');}, 10);
+
+          if ( scope.onEnter )
+            scope.onEnter(e);
+        }, false);
+
+        if ( scope.onHover )
+        {
+          parent.addEventListener('dragover', function(e){
+            scope.onHover(e);
+          }, false);
+        }
+
+        parent.addEventListener('drop', function(e){
+          stop(e);
+          iElement.removeClass('hover');
+          iElement.css('display', 'none');
+          if ( scope.onDrop )
+          {
+            var ofiles = e.dataTransfer.files;
+            var ffiles = [];
+            for ( var i = 0, file = ofiles[0] ; i < ofiles.length ; i++, file = ofiles[i] )
+            {
+              ffiles.push(file);
+            }
+            scope.onDrop(ffiles, e);
+          }
+        }, false);
+
+        parent.addEventListener('dragleave', function(e){
+          if ( e.target == iElement[0] )
+          {
+            iElement.removeClass('hover');
+            setTimeout(function(){iElement.css('display', 'none');}, 300);
+
+            if ( scope.onLeave )
+              scope.onLeave(e);
+          }
+        }, false);
+
+        parent.addEventListener('dragend', function(e){
+          iElement.removeClass('hover');
+          iElement.css('display', 'none');
+          if ( scope.onEnd )
+              scope.onEnd(e);
+        }, false);
+      }
+    };
+  });
+
+  // Shitty way to prevent the browser from loading a file when dropped on it
+  window.addEventListener("dragover",function(e){
+    e = e || event;
+    e.preventDefault();
+  },false);
+  window.addEventListener("drop",function(e){
+    e = e || event;
+    e.preventDefault();
+  },false);
+
+})(angular.module('receptes.directives', []));
+
+(function(module){
+
   var LogonController = function($scope, $modalInstance, Session){
     $scope.user = {};
 
@@ -115,12 +261,88 @@
       promise.then(function(){
         $modalInstance.close();
       }, function(){
-        $modalInstance.dismiss('error');
+        $modalInstance.dismiss('not-valid-user');
       });
     };
 
     $scope.close = function(){
       $modalInstance.dismiss('cancel');
+    };
+  };
+
+  var CardEditorController = function($scope, $modalInstance, DB){
+    var Recipe = function(){
+      return {
+        id: null,
+        title: null,
+        ingredients: [],
+        mainPhoto: null,
+        customersAmount: 1
+      };
+    };
+
+    var Ingredient = function(){
+      return {
+        name: null,
+        measure: null,
+        quantity: 0
+      };
+    };
+
+    // Notice that any scope member here to be inherited must
+    // be a non basic type of object, and not null (i.e. an object)
+    $scope.recipe = Recipe();
+    $scope.newIngredient = Ingredient();
+
+    $scope.addingNewIngredient = false;
+    $scope.s2Config = {
+      createSearchChoice: function(term, data) {
+        if ( $(data).filter(function() { return this.text.localeCompare(term)===0; }).length===0 )
+        {
+          return { id:term, text:term };
+        }
+      },
+      query: function(query){
+        var data = { results: DB.getIngredientsThatContains(query.term.toLowerCase()) };
+        query.callback(data);
+      },
+      allowClear: true,
+      multiple: false
+    };
+    $scope.s2Config2 = {
+      data: DB.getMeasures(),
+      allowClear: true,
+      multiple: false
+    };
+
+    $scope.setMainRecipePhoto = function(files){
+      console.log(files);
+    };
+
+    $scope.openAddingNewIngredient = function(){
+      $scope.addingNewIngredient = true;
+    };
+
+    $scope.closeNewIngredientEditor = function(){
+      $scope.addingNewIngredient = false;
+      
+      $scope.newIngredient.name = null;
+      $scope.newIngredient.measure = null;
+      $scope.newIngredient.quantity = 0;
+    };
+
+    $scope.createNewIngredient = function(i){
+      $scope.recipe.ingredients.push({
+        name: i.name,
+        measure: i.measure,
+        quantity: i.quantity
+      });
+
+      $scope.closeNewIngredientEditor();
+    };
+
+    $scope.saveRecipe = function(){
+      console.log($scope.recipe);
     };
   };
 
@@ -139,11 +361,23 @@
         id: i,
         title: r.title,
         author: r.authorName,
-        image: r.images[0]
+        image: r.images[0] ? r.images[0] : 'http://placehold.it/236x320'
       };
     };
 
-    $scope.viewRecipe = function(card){
+    $scope.viewRecipe = function($event, card){
+      var cardViewer = $modal.open({
+        templateUrl: 'lib/receptes/tmpl/card.html',
+        windowClass: 'card-view'
+      });
+    };
+
+    $scope.createRecipe = function(){
+      var cardViewer = $modal.open({
+        templateUrl: 'lib/receptes/tmpl/card.edit.html',
+        windowClass: 'card-view',
+        controller: CardEditorController
+      });
     };
 
     $scope.openLoginForm = function(){
@@ -161,7 +395,7 @@
       };
 
       var onError = function(reason){
-        if ( reason != 'cancel' )
+        if ( reason == 'not-valid-user' )
           Noty.error("L'usuari no existeix.");
       };
 
@@ -174,16 +408,27 @@
       recipes.forEach(function(r, i){
         $scope.recipes.push(Card(r, i));
       });
+
+      $scope.createRecipe();
     });
   });
 
-  module.run(function($rootScope, Noty, DB){
-    var promise = DB.getData();
+  module.run(function($rootScope, $templateCache, Noty, DB){
+    var promise = DB.initialize();
     promise.then(function(){
       $rootScope.$broadcast('db-loaded');
 
       Noty.log('receptes is running');
     });
+
+    $rootScope.$on('$viewContentLoaded', function() {
+      $templateCache.removeAll();
+   });
   });
 
-})(angular.module('receptes', ['receptes.services', 'ui.bootstrap']));
+})(angular.module('receptes', [
+  'receptes.services',
+  'receptes.directives',
+  'ui.bootstrap',
+  'ui.select2'
+]));
