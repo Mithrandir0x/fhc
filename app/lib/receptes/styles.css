@@ -125,9 +125,14 @@ Taken from: http://codepen.io/flesler/pen/AEIFc
     padding: 32px;
 }
 
-.recipe-image-area img.recipe-photo
+.recipe-image-area .recipe-photo
 {
-    width: 100%;
+    text-align: center;   
+}
+
+.recipe-image-area img
+{
+    width: 236px;
 }
 
 .recipe-image-area .remove-photo
