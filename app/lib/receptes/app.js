@@ -7,13 +7,30 @@
       users: [],
       ingredients: [],
       measures: [
-        { id: 0, text: 'Abstracta' },
-        { id: 1, text: 'Pes (gr)'}
+        'Abstracta',
+        'Pes (gr)',
+        'Volum (ml)',
+        'Unitats'
+      ],
+      abstractMeasures: [
+        'Un pessic',
+        'Una cullerada'
       ]
     }
 
     var DataBaseService = {
       initialize: function(){
+        var ids = function(iterable){
+          var d = [];
+          iterable.forEach(function(o, i){
+            d.push({
+              id: i + 1,
+              text: o
+            });
+          });
+          return d;
+        };
+
         var onSuccess = function(promise, resource, post){
           promise.success(function(data){
             if ( post )
@@ -28,6 +45,9 @@
           onSuccess(promise, resource, post);
           return promise;
         };
+
+        db.measures = ids(db.measures);
+        db.abstractMeasures = ids(db.abstractMeasures);
 
         var promiseA = fetch('res/data/recipes.json', 'recipes');
         var promiseB = fetch('res/data/users.json', 'users');
@@ -52,6 +72,9 @@
       },
       getMeasures: function(){
         return db.measures;
+      },
+      getAbstractMeasures: function(){
+        return db.abstractMeasures;
       },
       getUserByName: function(name){
         var l = db.users.filter(function(u){
@@ -144,11 +167,52 @@
 
 (function(module){
 
-  module.directive("contenteditable", function() {
+  module.filter('ingredient', function(){
+    var vowels = 'aeiouáéíóúàèìòùäëïöüâêîôû';
+    var abstractParser = function(ingredient){
+      var name = ingredient.name;
+      var quantity = ingredient.quantity.text;
+      var conj = vowels.indexOf(name[0]) != -1 ? " d'" : ' de ';
+      
+      return quantity + conj + name;
+    };
+    
+    var measures = {
+      '2': 'gr',
+      '3': 'ml'
+    };
+    var valueParser = function(ingredient){
+      var name = ingredient.name;
+      var quantity = ingredient.quantity;
+      var measure = measures[ingredient.measure];
+      var conj = vowels.indexOf(name[0]) != -1 ? " d'" : ' de ';
+      
+      return quantity + measure + conj + name;
+    };
+
+    var unitParser = function(ingredient){
+      var name = ingredient.name;
+      name = name[0].toUpperCase() + name.substring(1);
+      var quantity = ingredient.quantity;
+      
+      return quantity + ' × ' + name;
+    };
+
+    return function(input){
+      if ( input.measure == 1 )
+        return abstractParser(input);
+      else if ( input.measure == 4 )
+        return unitParser(input);
+      else
+        return valueParser(input);
+    };
+  });
+
+  module.directive("contenteditable", function(){
     return {
       restrict: "A",
       require: "ngModel",
-      link: function(scope, element, attrs, ngModel) {
+      link: function(scope, element, attrs, ngModel){
         function read() {
           ngModel.$setViewValue(element.html());
         };
@@ -157,7 +221,7 @@
           element.html(ngModel.$viewValue || "");
         };
 
-        element.bind("blur keyup change", function() {
+        element.bind("blur keyup change", function(){
           scope.$apply(read);
         });
       }
@@ -295,7 +359,7 @@
     $scope.newIngredient = Ingredient();
 
     $scope.addingNewIngredient = false;
-    $scope.s2Config = {
+    $scope.nameSelector = {
       createSearchChoice: function(term, data) {
         if ( $(data).filter(function() { return this.text.localeCompare(term)===0; }).length===0 )
         {
@@ -309,8 +373,13 @@
       allowClear: true,
       multiple: false
     };
-    $scope.s2Config2 = {
+    $scope.measureSelector = {
       data: DB.getMeasures(),
+      allowClear: true,
+      multiple: false
+    };
+    $scope.abstractMeasureSelector = {
+      data: DB.getAbstractMeasures(),
       allowClear: true,
       multiple: false
     };
@@ -359,23 +428,30 @@
       $scope.recipe.mainPhoto = null;
     };
 
-    $scope.openAddingNewIngredient = function(){
+    $scope.removeIngredient = function(ingredient){
+      var ingredients = $scope.recipe.ingredients;
+      var i = ingredients.indexOf(ingredient);
+      ingredients.splice(i, 1);
+    };
+
+    $scope.openIngredientEditor = function(){
       $scope.addingNewIngredient = true;
     };
 
-    $scope.closeNewIngredientEditor = function(){
+    $scope.closeIngredientEditor = function(){
       $scope.addingNewIngredient = false;
       $scope.newIngredient.name = null;
     };
 
     $scope.createNewIngredient = function(i){
       $scope.recipe.ingredients.push({
-        name: i.name,
-        measure: i.measure,
+        id: i.name.id,
+        name: i.name.text,
+        measure: i.measure.id,
         quantity: i.quantity
       });
 
-      $scope.closeNewIngredientEditor();
+      $scope.closeIngredientEditor();
     };
 
     $scope.saveRecipe = function(){

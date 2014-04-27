@@ -28,38 +28,40 @@
             <span>Llista d'ingredients:</span>
             <ul>
               <li ng-repeat="i in recipe.ingredients">
-                {{ i }}
+                {{ i|ingredient }}
+                <span class="glyphicon glyphicon-trash" ng-click="removeIngredient(i)"></span>
               </li>
             </ul>
           </div>
           <div class="recipe-ingredients">
-            <button ng-show="!addingNewIngredient" class="btn btn-primary" ng-click="openAddingNewIngredient()">
+            <button ng-show="!addingNewIngredient" class="btn btn-primary" ng-click="openIngredientEditor()">
               <span class="glyphicon glyphicon-plus"></span>
               Afegir nou ingredient
             </button>
             <div ng-show="addingNewIngredient" style="text-align: right;">
-              <input type="hidden" ui-select2="s2Config" ng-model="newIngredient.name" placeholder="Escriu l'ingredient que vols afegir" style="width: 100%; margin-bottom: 16px; text-align: left;">
+              <input type="hidden" ui-select2="nameSelector" ng-model="newIngredient.name" placeholder="Escriu l'ingredient que vols afegir" style="width: 100%; margin-bottom: 16px; text-align: left;">
               <div class="ingredient-value-type" ng-show="newIngredient.name">
                 <div class="form-group">
                   <div class="input-group select2-bootstrap-prepend" style="margin-bottom: 16px;">
                     <div class="input-group-addon">
                       Mesura
                     </div>
-                    <input type="hidden" class="form-control" ui-select2="s2Config2" placeholder="Seleccioni la mesura" ng-model="newIngredient.measure" style="text-align: left;">
+                    <input type="hidden" class="form-control" ui-select2="measureSelector" placeholder="Seleccioni la mesura" ng-model="newIngredient.measure" style="text-align: left;">
                   </div>
                   <div class="input-group" ng-show="newIngredient.measure">
                     <div class="input-group-addon">
                       Quantitat
                     </div>
-                    <input type="number" class="form-control" ng-model="newIngredient.quantity" placeholder="Escriu la quantitat de l'ingredient">
+                    <input type="hidden" class="form-control" ui-select2="abstractMeasureSelector" placeholder="Selecciona quant vols" ng-model="newIngredient.quantity" ng-show="newIngredient.measure.id == 1" style="text-align: left;">
+                    <input type="number" class="form-control" ng-model="newIngredient.quantity" placeholder="Escriu la quantitat de l'ingredient" ng-show="newIngredient.measure.id != 1">
                   </div>
                 </div>
               </div>
-              <button class="btn btn-default btn-sm" ng-show="newIngredient.name && newIngredient.measure" ng-click="createNewIngredient(newIngredient)">
+              <button class="btn btn-default btn-sm" ng-show="newIngredient.name && newIngredient.measure && newIngredient.quantity" ng-click="createNewIngredient(newIngredient)">
                 <span class="glyphicon glyphicon-remove"></span>
                 Crear nou ingredient
               </button>
-              <button class="btn btn-default btn-sm" ng-click="closeNewIngredientEditor()">
+              <button class="btn btn-default btn-sm" ng-click="closeIngredientEditor()">
                 <span class="glyphicon glyphicon-remove"></span>
                 Cancel·lar
               </button>
