@@ -95,6 +95,7 @@
           <h1 contenteditable do-not-allow-line-breaks="true" placeholder="Escriu el títol de la recepta" ng-model="recipe.title"></h1>
           <div class="recipe-step row" ng-repeat="s in recipe.steps">
             <div class="col-lg-8">
+              <span class="glyphicon glyphicon-remove pointer" ng-click="removeRecipeStep(s)"></span>
               <h3 contenteditable do-not-allow-line-breaks="true" placeholder="Escriu el títol del pas" ng-model="s.title"></h3>
               <p contenteditable placeholder="Escriu la descripció del pas de recepta" ng-model="s.description"></p>
             </div>

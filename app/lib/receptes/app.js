@@ -538,7 +538,11 @@ function no$$hashKey(key, val){
       recipeStep.photo = null;
     };
 
-    var codeWindow = null;
+    $scope.removeRecipeStep = function(recipeStep){
+      var steps = $scope.recipe.steps;
+      var i = steps.indexOf(recipeStep);
+      steps.splice(i, 1);
+    };
 
     $scope.viewRecipeCode = function(){
       $scope.showCode = true;
