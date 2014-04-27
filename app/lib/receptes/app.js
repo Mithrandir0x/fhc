@@ -227,10 +227,7 @@
         if ( scope.doNotAllowLineBreaks )
         {
           element.keydown(function(e){
-            if (e.keyCode == 13) {
-              // prevent the default behaviour of return key pressed
-              return false;
-            }
+            return !(e.keyCode == 13);
           });
         }
 
