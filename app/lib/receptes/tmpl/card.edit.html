@@ -57,8 +57,8 @@
                   </div>
                 </div>
               </div>
-              <button class="btn btn-default btn-sm" ng-show="newIngredient.name && newIngredient.measure && newIngredient.quantity" ng-click="createNewIngredient(newIngredient)">
-                <span class="glyphicon glyphicon-remove"></span>
+              <button class="btn btn-success btn-sm" ng-show="newIngredient.name && newIngredient.measure && newIngredient.quantity" ng-click="createNewIngredient(newIngredient)">
+                <span class="glyphicon glyphicon-ok"></span>
                 Crear nou ingredient
               </button>
               <button class="btn btn-default btn-sm" ng-click="closeIngredientEditor()">
@@ -76,7 +76,7 @@
               Guardar
             </button>
         </div>
-        <h1 contenteditable placeholder="Escriu el títol de la recepta" ng-model="recipe.title"></h1>
+        <h1 contenteditable do-not-allow-line-breaks="true" placeholder="Escriu el títol de la recepta" ng-model="recipe.title"></h1>
       </div>
     </div>
   </div>

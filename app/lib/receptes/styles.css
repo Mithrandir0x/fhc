@@ -16,6 +16,11 @@ Taken from: http://codepen.io/flesler/pen/AEIFc
   opacity: 0.6;
 }
 
+.cursor
+{
+    cursor: pointer;
+}
+
 .bg-pattern-food
 {
     background-image: url('./img/bg_patterns/food.png');

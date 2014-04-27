@@ -212,6 +212,9 @@
     return {
       restrict: "A",
       require: "ngModel",
+      scope: {
+        doNotAllowLineBreaks: '@'
+      },
       link: function(scope, element, attrs, ngModel){
         function read() {
           ngModel.$setViewValue(element.html());
@@ -220,6 +223,16 @@
         ngModel.$render = function() {
           element.html(ngModel.$viewValue || "");
         };
+
+        if ( scope.doNotAllowLineBreaks )
+        {
+          element.keydown(function(e){
+            if (e.keyCode == 13) {
+              // prevent the default behaviour of return key pressed
+              return false;
+            }
+          });
+        }
 
         element.bind("blur keyup change", function(){
           scope.$apply(read);
