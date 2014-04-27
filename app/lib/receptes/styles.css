@@ -115,19 +115,47 @@ Taken from: http://codepen.io/flesler/pen/AEIFc
 .recipe-image-area
 {
     margin-bottom: 16px;
+    position: relative;
 }
 
 .recipe-image-area .photo-placeholder
 {
     border: 1px solid #f0f;
-    position: relative;
     text-align: center;
     padding: 32px;
+}
+
+.recipe-image-area img.recipe-photo
+{
+    width: 100%;
+}
+
+.recipe-image-area .remove-photo
+{
+    cursor: pointer;
+    color: red;
+    display: none;
+    font-size: 32px;
+    left: 24px;
+    position: absolute;
+    top: 8px;
+}
+
+.recipe-image-area:hover .remove-photo
+{
+    display: block;
 }
 
 .recipe-image-area .photo-placeholder .icon
 {
     font-size: 48px;
+}
+
+.recipe-image-area .photo-placeholder .photo-placeholder-border
+{
+    border: 1px solid #f0f;
+    display: inline-block;
+    padding: 16px;
 }
 
 .recipe-properties-area .recipe-customers

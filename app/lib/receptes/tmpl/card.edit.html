@@ -3,17 +3,22 @@
     <div class="row">
       <div class="col-lg-4">
         <div class="recipe-image-area">
-          <img ng-show="mainPhoto" class="recipe-photo" ng-src="{{ mainPhoto }}">
-          <div class="photo-placeholder" ng-show="!mainPhoto">
-            <div class="photo-placeholder-border" style="border: 1px solid #f0f; display: inline-block; padding: 16px;">
-              <i class="icon ion-images" style="font-size: 48px;"></i><br />
+          <div class="recipe-photo" ng-show="recipe.mainPhoto">
+            <img class="recipe-photo" ng-src="{{ recipe.mainPhoto }}">
+            <div class="remove-photo">
+              <span class="glyphicon glyphicon-remove" ng-click="removeMainPhoto()"></span>
+            </div>
+          </div>
+          <div class="photo-placeholder" ng-show="!recipe.mainPhoto">
+            <div class="photo-placeholder-border">
+              <i class="icon ion-images"></i><br />
               <span class="help-text">
                 Arrosega una imatge<br />
                 des de l'escriptori
               </span>
             </div>
-            <dropbox on-drop="setMainRecipePhoto"></dropbox>
           </div>
+          <dropbox on-drop="setMainRecipePhoto"></dropbox>
         </div>
         <div class="recipe-properties-area">
           <div class="customers">
@@ -46,7 +51,7 @@
                     <div class="input-group-addon">
                       Quantitat
                     </div>
-                    <input type="number" class="form-control" ng-model="newIngredient.quantity">
+                    <input type="number" class="form-control" ng-model="newIngredient.quantity" placeholder="Escriu la quantitat de l'ingredient">
                   </div>
                 </div>
               </div>
@@ -69,7 +74,7 @@
               Guardar
             </button>
         </div>
-        <h1 contenteditable placeholder="Títol de recepta" ng-model="recipe.title"></h1>
+        <h1 contenteditable placeholder="Escriu el títol de la recepta" ng-model="recipe.title"></h1>
       </div>
     </div>
   </div>

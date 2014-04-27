@@ -270,7 +270,7 @@
     };
   };
 
-  var CardEditorController = function($scope, $modalInstance, DB){
+  var CardEditorController = function($scope, $modalInstance, DB, Noty){
     var Recipe = function(){
       return {
         id: null,
@@ -285,7 +285,7 @@
       return {
         name: null,
         measure: null,
-        quantity: 0
+        quantity: null
       };
     };
 
@@ -315,8 +315,48 @@
       multiple: false
     };
 
+    $scope.$watch('newIngredient.name', function(newValue){
+      if ( !newValue )
+      {
+        $scope.newIngredient.measure = null;
+        $scope.newIngredient.quantity = null;
+      }
+    });
+
+    $scope.$watch('newIngredient.measure', function(newValue){
+      if ( !newValue )
+      {
+        $scope.newIngredient.quantity = null;
+      }
+    });
+
     $scope.setMainRecipePhoto = function(files){
-      console.log(files);
+      if ( files.length == 1 )
+      {
+        var file = files[0];
+        if ( file.type.indexOf('image') != -1 )
+        {
+          var reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onloadend = function(){
+            $scope.recipe.mainPhoto = reader.result;
+            $scope.$apply();
+          };
+        }
+        else
+        {
+          Noty.error("Tipus d'imatge no soportat.");
+        }
+      }
+      else
+      {
+        Noty.warn('Només es pot afegir una fotografia.');
+      }
+      
+    };
+
+    $scope.removeMainPhoto = function(){
+      $scope.recipe.mainPhoto = null;
     };
 
     $scope.openAddingNewIngredient = function(){
@@ -325,10 +365,7 @@
 
     $scope.closeNewIngredientEditor = function(){
       $scope.addingNewIngredient = false;
-      
       $scope.newIngredient.name = null;
-      $scope.newIngredient.measure = null;
-      $scope.newIngredient.quantity = 0;
     };
 
     $scope.createNewIngredient = function(i){
@@ -346,7 +383,7 @@
     };
   };
 
-  module.controller('HomeController', function($scope, $log, $modal, DB, Noty, Session){
+  module.controller('HomeController', function($scope, $log, $modal, $controller, DB, Noty, Session){
     $scope.login = false;
     
     $scope.userName = null;
@@ -365,12 +402,7 @@
       };
     };
 
-    $scope.viewRecipe = function($event, card){
-      var cardViewer = $modal.open({
-        templateUrl: 'lib/receptes/tmpl/card.html',
-        windowClass: 'card-view'
-      });
-    };
+    $scope.viewRecipe = function($event, card){ };
 
     $scope.createRecipe = function(){
       var cardViewer = $modal.open({
@@ -410,6 +442,10 @@
       });
 
       $scope.createRecipe();
+    });
+
+    $scope.$on('new-recipe', function(){
+
     });
   });
 
