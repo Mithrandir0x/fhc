@@ -178,6 +178,11 @@ Taken from: http://codepen.io/flesler/pen/AEIFc
     text-align: center;
 }
 
+.recipe-step .recipe-photo img
+{
+    width: 100%;
+}
+
 .dropbox
 {
     display: none;

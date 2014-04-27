@@ -1,4 +1,10 @@
 
+// https://gist.github.com/gdi2290/6703570
+function no$$hashKey(key, val){
+  if ( key == '$$hashKey' ) return undefined;
+  return val;
+};
+
 (function(module){
 
   module.factory('DB', ['$http', '$q', function($http, $q){
@@ -251,6 +257,7 @@
         onLeave: '=',
         onEnd: '=',
         onDrop: '=',
+        onDropExp: '&',
         global: '@'
       },
       link: function(scope, iElement, attr){
@@ -280,6 +287,7 @@
           stop(e);
           iElement.removeClass('hover');
           iElement.css('display', 'none');
+          
           if ( scope.onDrop )
           {
             var ofiles = e.dataTransfer.files;
@@ -289,6 +297,17 @@
               ffiles.push(file);
             }
             scope.onDrop(ffiles, e);
+          }
+          else if ( scope.onDropExp )
+          {
+            var callback = scope.onDropExp();
+            var ofiles = e.dataTransfer.files;
+            var ffiles = [];
+            for ( var i = 0, file = ofiles[0] ; i < ofiles.length ; i++, file = ofiles[i] )
+            {
+              ffiles.push(file);
+            }
+            callback(ffiles, e);
           }
         }, false);
 
@@ -351,7 +370,8 @@
         title: null,
         ingredients: [],
         mainPhoto: null,
-        customersAmount: 1
+        customersAmount: 1,
+        steps: []
       };
     };
 
@@ -363,10 +383,21 @@
       };
     };
 
-    // Notice that any scope member here to be inherited must
-    // be a non basic type of object, and not null (i.e. an object)
+    var RecipeStep = function(){
+      return {
+        title: null,
+        description: null,
+        photo: null
+      };
+    };
+
+    // Notice that any scope member here to be inherited must be a
+    // non basic (numeric, boolean) type of object, and not null
     $scope.recipe = Recipe();
     $scope.newIngredient = Ingredient();
+
+    $scope.showCode = false;
+    $scope.recipeCode = '';
 
     $scope.addingNewIngredient = false;
     $scope.nameSelector = {
@@ -431,7 +462,32 @@
       {
         Noty.warn('Només es pot afegir una fotografia.');
       }
-      
+    };
+
+    $scope.setStepPhoto = function(s){
+      return function(files){
+        if ( files.length == 1 )
+        {
+          var file = files[0];
+          if ( file.type.indexOf('image') != -1 )
+          {
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onloadend = function(){
+              s.photo = reader.result;
+              $scope.$apply();
+            };
+          }
+          else
+          {
+            Noty.error("Tipus d'imatge no soportat.");
+          }
+        }
+        else
+        {
+          Noty.warn('Només es pot afegir una fotografia.');
+        }
+      };
     };
 
     $scope.removeMainPhoto = function(){
@@ -464,9 +520,41 @@
       $scope.closeIngredientEditor();
     };
 
-    $scope.saveRecipe = function(){
-      console.log($scope.recipe);
+    $scope.downloadRecipeCode = function($event){
+      var anchor = $event.currentTarget;
+      var data = JSON.stringify($scope.recipe, no$$hashKey);
+      // Required as strings with spaces would not be rendered
+      // correctly after file being downloaded.
+      data = data.replace(' ', '%20');
+      anchor.href = 'data:application/json;charset=UTF-8,' + data;
+      anchor.download = 'recepte_' + Date.now() + '.json';
     };
+
+    $scope.createRecipeStep = function(){
+      $scope.recipe.steps.push(RecipeStep());
+    };
+
+    $scope.removeStepPhoto = function(recipeStep){
+      recipeStep.photo = null;
+    };
+
+    var codeWindow = null;
+
+    $scope.viewRecipeCode = function(){
+      $scope.showCode = true;
+      $scope.recipeCode = JSON.stringify($scope.recipe, no$$hashKey);
+    };
+
+    $scope.selectText = function($event){
+      var element = $event.currentTarget;
+      var range = document.createRange();
+      range.selectNodeContents(element);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+    };
+
+    $scope.saveRecipe = function(){};
   };
 
   module.controller('HomeController', function($scope, $log, $modal, $controller, DB, Noty, Session){

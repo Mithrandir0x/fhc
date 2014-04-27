@@ -1,5 +1,12 @@
 <div class="modal-body">
   <div class="container-fluid">
+    <div ng-show="showCode" class="row">
+      <div class="col-lg-12">
+        <pre class="pre-scrollable" style="word-wrap: break-word;" ng-click="selectText($event)">
+{{ recipeCode }}
+        </pre>
+      </div>
+    </div>
     <div class="row">
       <div class="col-lg-4">
         <div class="recipe-image-area">
@@ -71,12 +78,52 @@
       </div>
       <div class="col-lg-8">
         <div>
-           <button class="btn btn-default btn-sm" ng-click="saveRecipe()">
-              <span class="glyphicon glyphicon-remove"></span>
-              Guardar
-            </button>
+          <button class="btn btn-default btn-sm" ng-click="viewRecipeCode()">
+            <span class="glyphicon glyphicon-file"></span>
+            Veure codi recepta
+          </button>
+          <!-- <a class="btn btn-default btn-sm" ng-click="downloadRecipeCode($event)">
+            <span class="glyphicon glyphicon-cloud-download"></span>
+            Descarregar codi recepta
+          </a> -->
+          <button class="btn btn-default btn-sm" ng-click="saveRecipe()">
+            <span class="glyphicon glyphicon-remove"></span>
+            Guardar
+          </button>
         </div>
-        <h1 contenteditable do-not-allow-line-breaks="true" placeholder="Escriu el títol de la recepta" ng-model="recipe.title"></h1>
+        <div class="recipe-body-content">
+          <h1 contenteditable do-not-allow-line-breaks="true" placeholder="Escriu el títol de la recepta" ng-model="recipe.title"></h1>
+          <div class="recipe-step row" ng-repeat="s in recipe.steps">
+            <div class="col-lg-8">
+              <h3 contenteditable do-not-allow-line-breaks="true" placeholder="Escriu el títol del pas" ng-model="s.title"></h3>
+              <p contenteditable placeholder="Escriu la descripció del pas de recepta" ng-model="s.description"></p>
+            </div>
+            <div class="col-lg-4">
+              <div class="recipe-image-area">
+                <div class="recipe-photo" ng-show="s.photo">
+                  <img ng-src="{{ s.photo }}">
+                  <div class="remove-photo">
+                    <span class="glyphicon glyphicon-remove" ng-click="removeStepPhoto(s)"></span>
+                  </div>
+                </div>
+                <div class="photo-placeholder" ng-show="!s.photo">
+                  <div class="photo-placeholder-border">
+                    <i class="icon ion-images"></i><br />
+                    <span class="help-text">
+                      Arrosega una imatge<br />
+                      des de l'escriptori
+                    </span>
+                  </div>
+                </div>
+                <dropbox on-drop-exp="setStepPhoto(s)"></dropbox>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-primary btn-lg btn-block" ng-click="createRecipeStep()">
+          <span class="glyphicon glyphicon-plus"></span>
+          Afegir nou pas de recepta
+        </button>
       </div>
     </div>
   </div>
