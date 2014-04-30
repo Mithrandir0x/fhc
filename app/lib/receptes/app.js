@@ -82,9 +82,24 @@ function no$$hashKey(key, val){
       getAbstractMeasures: function(){
         return db.abstractMeasures;
       },
+      getPublishedRecipes: function(){
+        return db.recipes.filter(function(r){
+          return r.published;
+        });
+      },
+      getMeasureTitle: function(id){
+        var l = db.measures.filter(function(m){
+          return m.id == id;
+        });
+
+        if ( l[0] )
+          return l[0]['text'];
+        else
+          return '';
+      },
       getUserByName: function(name){
         var l = db.users.filter(function(u){
-          return angular.lowercase(u.name) == angular.lowercase(name);
+          return angular.lowercase(u.login) == angular.lowercase(name);
         });
 
         return l[0];
@@ -95,6 +110,21 @@ function no$$hashKey(key, val){
         });
 
         return l;
+      },
+      saveRecipe: function(recipe){
+        var l = db.recipes.filter(function(r){
+          return r.id == recipe.id;
+        });
+
+        if ( l.length > 0 )
+        {
+          var i = db.recipes.indexOf(l[0]);
+          db.recipes[i] = recipe;
+        }
+        else
+        {
+          db.recipes.push(recipe);
+        }
       }
     };
 
@@ -131,7 +161,12 @@ function no$$hashKey(key, val){
   });
 
   module.factory('Session', ['$q', 'DB', function($q, DB){
-    var s = null;
+    var s = {
+      id: null,
+      name: null,
+      avatar: null,
+      loggedIn: false
+    };
 
     var SessionService = {
       logIn: function(username){
@@ -143,7 +178,8 @@ function no$$hashKey(key, val){
           s = {
             'id': user.id,
             'name': user.name,
-            'avatar': user.avatar
+            'avatar': user.avatar,
+            'loggedIn': true
           };
 
           deferred.resolve();
@@ -155,6 +191,9 @@ function no$$hashKey(key, val){
 
         return deferred.promise;
       },
+      getId: function(){
+        return s.id;
+      },
       getName: function(){
         return s.name;
       },
@@ -162,7 +201,7 @@ function no$$hashKey(key, val){
         return s.avatar;
       },
       isLoggedIn: function(){
-        return s != null;
+        return s.loggedIn;
       }
     };
 
@@ -175,6 +214,7 @@ function no$$hashKey(key, val){
 
   module.filter('ingredient', function(){
     var vowels = 'aeiouáéíóúàèìòùäëïöüâêîôû';
+    vowels = vowels + vowels.toUpperCase();
     var abstractParser = function(ingredient){
       var name = ingredient.name;
       var quantity = ingredient.quantity.text;
@@ -363,11 +403,14 @@ function no$$hashKey(key, val){
     };
   };
 
-  var CardEditorController = function($scope, $modalInstance, DB, Noty){
+  var CardEditorController = function($scope, $rootScope, $modalInstance, Session, DB, Noty, recipe){
     var Recipe = function(){
       return {
-        id: null,
+        id: (Math.random() * 10000)|0,
         title: null,
+        authorId: Session.getId(),
+        published: false,
+        authorName: Session.getName(),
         ingredients: [],
         mainPhoto: null,
         customersAmount: 1,
@@ -400,6 +443,8 @@ function no$$hashKey(key, val){
     $scope.recipeCode = '';
 
     $scope.addingNewIngredient = false;
+    $scope.ingredientBeingEdited = null;
+    
     $scope.nameSelector = {
       createSearchChoice: function(term, data) {
         if ( $(data).filter(function() { return this.text.localeCompare(term)===0; }).length===0 )
@@ -498,24 +543,52 @@ function no$$hashKey(key, val){
       var ingredients = $scope.recipe.ingredients;
       var i = ingredients.indexOf(ingredient);
       ingredients.splice(i, 1);
+
+      if ( $scope.ingredientBeingEdited == i )
+        $scope.closeIngredientEditor();
     };
 
-    $scope.openIngredientEditor = function(){
+    $scope.openIngredientEditor = function(i){
+      if ( i )
+      {
+        $scope.ingredientBeingEdited = i;
+        $scope.newIngredient.name = {
+          id: i.id,
+          text: i.name
+        };
+        $scope.newIngredient.measure = {
+          id: i.measure,
+          text: DB.getMeasureTitle(i.measure)
+        };
+        $scope.newIngredient.quantity = i.quantity;
+      }
+      
       $scope.addingNewIngredient = true;
     };
 
     $scope.closeIngredientEditor = function(){
       $scope.addingNewIngredient = false;
+      $scope.ingredientBeingEdited = null;
       $scope.newIngredient.name = null;
     };
 
     $scope.createNewIngredient = function(i){
-      $scope.recipe.ingredients.push({
-        id: i.name.id,
-        name: i.name.text,
-        measure: i.measure.id,
-        quantity: i.quantity
-      });
+      if ( $scope.ingredientBeingEdited )
+      {
+        $scope.ingredientBeingEdited.id = i.name.id;
+        $scope.ingredientBeingEdited.name = i.name.text;
+        $scope.ingredientBeingEdited.measure = i.measure.id;
+        $scope.ingredientBeingEdited.quantity = i.quantity;
+      }
+      else
+      {
+        $scope.recipe.ingredients.push({
+          id: i.name.id,
+          name: i.name.text,
+          measure: i.measure.id,
+          quantity: i.quantity
+        });
+      }
 
       $scope.closeIngredientEditor();
     };
@@ -558,12 +631,49 @@ function no$$hashKey(key, val){
       sel.addRange(range);
     };
 
-    $scope.saveRecipe = function(){};
+    $scope.saveRecipe = function(){
+      var data = JSON.parse(JSON.stringify($scope.recipe, no$$hashKey));
+      DB.saveRecipe(data);
+      //$modalInstance.close();
+      $rootScope.$broadcast('new-recipe', data);
+
+      Noty.good("La recepta s'ha guardat amb éxit.");
+    };
+
+    $scope.publishRecipe = function(){
+      $scope.recipe.published = true;
+      var data = JSON.parse(JSON.stringify($scope.recipe, no$$hashKey));
+      DB.saveRecipe(data);
+      $modalInstance.close();
+      $rootScope.$broadcast('new-recipe', data);
+
+      Noty.good("La recepta s'ha publicat.")
+    }
+
+    if ( recipe )
+    {
+      $scope.recipe.id = recipe.id;
+      $scope.recipe.title = recipe.title;
+      $scope.recipe.published = recipe.published;
+      $scope.recipe.mainPhoto = recipe.mainPhoto;
+      $scope.recipe.customersAmount = recipe.customersAmount;
+      $scope.recipe.authorId = recipe.authorId;
+      $scope.recipe.authorName = recipe.authorName;
+
+      recipe.ingredients.forEach(function(i){
+        $scope.recipe.ingredients.push(i);
+      });
+
+      recipe.steps.forEach(function(s){
+        $scope.recipe.steps.push(s);
+      });
+    }
   };
 
-  module.controller('HomeController', function($scope, $log, $modal, $controller, DB, Noty, Session){
+  module.controller('HomeController', function($scope, $location, $log, $modal, DB, Noty, Session){
     $scope.login = false;
     
+    $scope.userId = null;
     $scope.userName = null;
     $scope.userAvatar = null;
 
@@ -571,23 +681,55 @@ function no$$hashKey(key, val){
 
     $scope.recipes = [];
 
+    var loginWithUsername = null;
+
     var Card = function(r, i){
       return {
-        id: i,
+        recipeId: i,
         title: r.title,
+        authorId: r.authorId,
         author: r.authorName,
-        image: r.images[0] ? r.images[0] : 'http://placehold.it/236x320'
+        image: r.mainPhoto,
+        data: r
       };
+    };
+
+    var onUserLogin = function(){
+      $scope.userId = Session.getId();
+      $scope.userName = Session.getName();
+      $scope.userAvatar = Session.getAvatar();
+      $scope.login = true;
+
+      Noty.good('Benvingut, ' + $scope.userName);
+    };
+
+    var onUserLoginError = function(reason){
+      if ( reason == 'not-valid-user' )
+        Noty.error("L'usuari no existeix.");
     };
 
     $scope.viewRecipe = function($event, card){ };
 
-    $scope.createRecipe = function(){
+    $scope.openRecipeEditor = function(data){
       var cardViewer = $modal.open({
         templateUrl: 'lib/receptes/tmpl/card.edit.html',
         windowClass: 'card-view',
-        controller: CardEditorController
+        controller: CardEditorController,
+        scope: $scope,
+        resolve: {
+          recipe: function(){
+            return data;
+          }
+        }
       });
+    }
+
+    $scope.createRecipe = function(){
+      $scope.openRecipeEditor();
+    };
+
+    $scope.editRecipe = function(data){
+      $scope.openRecipeEditor(data);
     };
 
     $scope.openLoginForm = function(){
@@ -596,35 +738,46 @@ function no$$hashKey(key, val){
         controller: LogonController
       });
 
-      var onSuccess = function(){
-        $scope.userName = Session.getName();
-        $scope.userAvatar = Session.getAvatar();
-        $scope.login = true;
-
-        Noty.good('Benvingut, ' + $scope.userName);
-      };
-
-      var onError = function(reason){
-        if ( reason == 'not-valid-user' )
-          Noty.error("L'usuari no existeix.");
-      };
-
       var promise = loginForm.result;
-      promise.then(onSuccess, onError);
+      promise.then(onUserLogin, onUserLoginError);
     };
 
-    $scope.$on('db-loaded', function(){
-      var recipes = DB.getAllRecipes();
+    $scope.updateView = function(){
+      var recipes = DB.getPublishedRecipes();
+      $scope.recipes = [];
       recipes.forEach(function(r, i){
         $scope.recipes.push(Card(r, i));
       });
+    }
 
-      $scope.createRecipe();
+    $scope.$on('db-loaded', function(){
+      $scope.updateView();
+
+      if ( loginWithUsername )
+      {
+        var promise = Session.logIn(loginWithUsername);
+        promise.then(onUserLogin, onUserLoginError);
+      }
+
+      //$scope.createRecipe();
     });
 
     $scope.$on('new-recipe', function(){
-
+      $scope.updateView();
     });
+
+    $scope.$watch('location.path()', function(){
+      var path = $location.path().split('/');
+      if ( path && path.length == 3 && path[1] == 'login' )
+      {
+        loginWithUsername = path[2];
+      }
+    });
+  });
+
+  module.config(function($locationProvider){
+    $locationProvider.html5Mode(false);
+    $locationProvider.hashPrefix('!');
   });
 
   module.run(function($rootScope, $templateCache, Noty, DB){
@@ -632,7 +785,7 @@ function no$$hashKey(key, val){
     promise.then(function(){
       $rootScope.$broadcast('db-loaded');
 
-      Noty.log('receptes is running');
+      Noty.log('receptes.cat is running');
     });
 
     $rootScope.$on('$viewContentLoaded', function() {

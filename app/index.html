@@ -4,7 +4,7 @@
     <title>receptes.cat</title>
     <meta http-equiv="content-type" content="text/html"; charset="UTF-8" />
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <link href='http://fonts.googleapis.com/css?family=Gochi+Hand' rel='stylesheet' type='text/css'>
+    <!-- link href='http://fonts.googleapis.com/css?family=Gochi+Hand' rel='stylesheet' type='text/css' -->
     <link href="lib/bootstrap/css/3.1.1.css" rel="stylesheet" media="screen" >
     <link href="lib/ionicons/css/ionicons.css" rel="stylesheet" media="screen" >
     <link href="lib/select2/select2.css" rel="stylesheet" media="screen" >
@@ -39,8 +39,12 @@
           </div>
         </form>
         <a class="navbar-brand" href="#">receptes.cat</a>
+        <div ng-show="login" class="navbar-right user-area">
+          <img ng-src="{{ userAvatar }}" class="img-rounded user-avatar">
+          <span class="user-name">{{ userName }}</span>
+        </div>
         <form class="navbar-form navbar-right" role="login">
-          <button ng-show="!login" class="btn btn-success" ng-click="createRecipe()">
+          <button ng-show="login" class="btn btn-success" ng-click="createRecipe()">
             Crear nova recepta
             <span class="glyphicon glyphicon-plus"></span>
           </button>
@@ -49,10 +53,6 @@
             <span class="glyphicon glyphicon-log-in"></span>
           </button>
         </form>
-        <div ng-show="login" class="navbar-right user-area">
-          <img ng-src="{{ userAvatar }}" class="img-rounded user-avatar">
-          <span class="user-name">{{ userName }}</span>
-        </div>
       </div>
     </nav>
     <div class="container-fluid" style="text-align: center;">
@@ -63,6 +63,10 @@
           </div>
           <div class="card-overlay">
             <h3>{{ recipeCardInfo.title }}</h3>
+            <button ng-show="recipeCardInfo.authorId == userId" class="btn btn-default" ng-click="editRecipe(recipeCardInfo.data)">
+              <span class="glyphicon glyphicon-pencil"></span>
+              Editar
+            </button>
           </div>
         </div>
       </div>

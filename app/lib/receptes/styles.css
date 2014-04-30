@@ -16,7 +16,7 @@ Taken from: http://codepen.io/flesler/pen/AEIFc
   opacity: 0.6;
 }
 
-.cursor
+.pointer
 {
     cursor: pointer;
 }
@@ -84,9 +84,9 @@ Taken from: http://codepen.io/flesler/pen/AEIFc
 
 .card .card-overlay
 {
-    background: rgba(0, 0, 0, 0.45);
+    background: rgba(255, 255, 255, 0.45);
     border-radius: 8px;
-    color: #FFF;
+    color: #000;
     cursor: pointer;
     height: 100%;
     left: 0;
@@ -105,6 +105,7 @@ Taken from: http://codepen.io/flesler/pen/AEIFc
 .user-area
 {
     margin-top: 8px;
+    margin-left: 16px;
 }
 
 .user-area .user-avatar
@@ -178,6 +179,17 @@ Taken from: http://codepen.io/flesler/pen/AEIFc
     text-align: center;
 }
 
+.recipe-properties-area .ingredient-list li .glyphicon
+{
+    opacity: 0;
+}
+
+.recipe-properties-area .ingredient-list li:hover .glyphicon
+{
+    opacity: 1;
+    transition: all 0.3s ease-in-out;
+}
+
 .recipe-step .recipe-photo img
 {
     width: 100%;
@@ -190,7 +202,7 @@ Taken from: http://codepen.io/flesler/pen/AEIFc
     left: 0;
     position: absolute;
     top: 0;
-    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
     width: 100%;
 }
 

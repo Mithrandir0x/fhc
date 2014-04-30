@@ -1,7 +1,20 @@
 [
   {
     "id": 1,
-    "name": "Usuari",
-    "avatar": "https://github.com/identicons/mithrandir0x.png"
+    "login": "usuari",
+    "name": "Jack Nicholson",
+    "avatar": "/res/img/usuari.jpg"
+  },
+  {
+    "id": 2,
+    "login": "usuari2",
+    "name": "Kim Jong-il",
+    "avatar": "/res/img/usuari-2.jpg"
+  },
+  {
+    "id": 3,
+    "login": "usuari3",
+    "name": "Luke Skywalker",
+    "avatar": "/res/img/usuari-3.jpg"
   }
 ]

@@ -1,23 +1,81 @@
 [
   {
+    "id": 1,
     "title": "Torrijas",
+    "authorId": 2,
+    "published": true,
     "authorName": "Usuari",
-    "authorId": "1",
-    "images": [
-      "res/img/torrija-000-low.jpg"
-    ],
+    "mainPhoto": "res/img/torrija-000-low.jpg",
+    "customersAmount": 2,
     "ingredients": [
       {
-        "type": 0,
-        "value": 0
+        "id": 148,
+        "name": "oli d'oliva",
+        "measure": 3,
+        "quantity": 23
       }
     ],
     "steps": [
+    ]
+  },
+  {
+    "id": 2,
+    "title": "aquest és el títol de la recepta",
+    "authorId": 1,
+    "published": true,
+    "authorName": "Jack Nicholson",
+    "ingredients": [
       {
-        "title": "",
-        "description": "",
-        "images": []
+        "id": "Propietat associativa",
+        "name": "Propietat associativa",
+        "measure": 1,
+        "quantity": {
+          "id": 1,
+          "text": "Un pessic"
+        }
+      },
+      {
+        "id": "escrofols",
+        "name": "escrofols",
+        "measure": 1,
+        "quantity": {
+          "id": 2,
+          "text": "Una cullerada"
+        }
       }
+    ],
+    "mainPhoto": "res/img/torrija-000-low.jpg",
+    "customersAmount": 34,
+    "steps": [
+      {
+        "title": "El primer pas de la recepta és no contar-ho",
+        "description": "La primera regla del club de la <b>tautologia</b> és la primera regla.<div><br></div><div>Tot i que no tindria que estar parlant d'una recepta de cuina?</div>",
+        "photo": null
+      },
+      {
+        "title": "Acabo de pensar que seria una bona idea parlar sobre cuestions morals més interessants...",
+        "description": "Amb <b>un text descriptiu</b> sense imatge!<div><br></div><div>No sé com possar altres parts del text en altres formats que no siguin negreta...</div>",
+        "photo": null
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Torrijas",
+    "authorId": 1,
+    "published": false,
+    "authorName": "Usuari",
+    "mainPhoto": "res/img/torrija-000-low.jpg",
+    "customersAmount": 2,
+    "ingredients": [
+      {
+        "id": 148,
+        "name": "oli d'oliva",
+        "measure": 3,
+        "quantity": 23
+      }
+    ],
+    "steps": [
     ]
   }
 ]
