@@ -36,6 +36,13 @@ Taken from: http://codepen.io/flesler/pen/AEIFc
     width: 512px;
 }
 
+@media (max-width: 1024px) {
+    .search-bar
+    {
+        width: 392px;
+    }
+}
+
 .navbar
 {
     text-align: center;

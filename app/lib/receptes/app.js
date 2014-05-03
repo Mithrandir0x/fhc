@@ -254,12 +254,28 @@ function no$$hashKey(key, val){
     };
   });
 
+  module.filter('persones', function(){
+    return function(input){
+      var value = parseInt(input);
+      if ( value != NaN )
+      {
+        if ( value == 1 )
+          return value + ' persona';
+        else
+          return value + ' persones';
+      }
+
+      return '';
+    }
+  })
+
   module.directive("contenteditable", function(){
     return {
       restrict: "A",
       require: "ngModel",
       scope: {
-        doNotAllowLineBreaks: '@'
+        doNotAllowLineBreaks: '@',
+        editable: '='
       },
       link: function(scope, element, attrs, ngModel){
         function read() {
@@ -277,8 +293,16 @@ function no$$hashKey(key, val){
           });
         }
 
+        scope.$watch('editable', function(editable){
+          if ( editable )
+            element.attr('contenteditable', '');
+          else
+            element.removeAttr('contenteditable');
+        })
+
         element.bind("blur keyup change", function(){
-          scope.$apply(read);
+          if ( scope.editable )
+            scope.$apply(read);
         });
       }
     };
@@ -298,56 +322,73 @@ function no$$hashKey(key, val){
         onEnd: '=',
         onDrop: '=',
         onDropExp: '&',
+        droppable: '=',
         global: '@'
       },
       link: function(scope, iElement, attr){
+        var droppable = true;
+
         var stop = function(e){
           e.stopPropagation();
           e.preventDefault();
         };
 
+        scope.$watch('droppable', function(value){
+          if ( value === true || value === false )
+            droppable = value;
+          else
+            droppable = true;
+        });
+
         var parent = iElement.parent()[0];
 
         parent.addEventListener('dragenter', function(e){
-          iElement.css('display', 'block');
-          setTimeout(function(){iElement.addClass('hover');}, 10);
+          if ( droppable )
+          {
+            iElement.css('display', 'block');
+            setTimeout(function(){iElement.addClass('hover');}, 10);
 
-          if ( scope.onEnter )
-            scope.onEnter(e);
+            if ( scope.onEnter )
+              scope.onEnter(e); 
+          }
         }, false);
 
         if ( scope.onHover )
         {
           parent.addEventListener('dragover', function(e){
-            scope.onHover(e);
+            if ( droppable )
+              scope.onHover(e);
           }, false);
         }
 
         parent.addEventListener('drop', function(e){
           stop(e);
-          iElement.removeClass('hover');
-          iElement.css('display', 'none');
-          
-          if ( scope.onDrop )
+          if ( droppable )
           {
-            var ofiles = e.dataTransfer.files;
-            var ffiles = [];
-            for ( var i = 0, file = ofiles[0] ; i < ofiles.length ; i++, file = ofiles[i] )
+            iElement.removeClass('hover');
+            iElement.css('display', 'none');
+            
+            if ( scope.onDrop )
             {
-              ffiles.push(file);
+              var ofiles = e.dataTransfer.files;
+              var ffiles = [];
+              for ( var i = 0, file = ofiles[0] ; i < ofiles.length ; i++, file = ofiles[i] )
+              {
+                ffiles.push(file);
+              }
+              scope.onDrop(ffiles, e);
             }
-            scope.onDrop(ffiles, e);
-          }
-          else if ( scope.onDropExp )
-          {
-            var callback = scope.onDropExp();
-            var ofiles = e.dataTransfer.files;
-            var ffiles = [];
-            for ( var i = 0, file = ofiles[0] ; i < ofiles.length ; i++, file = ofiles[i] )
+            else if ( scope.onDropExp )
             {
-              ffiles.push(file);
-            }
-            callback(ffiles, e);
+              var callback = scope.onDropExp();
+              var ofiles = e.dataTransfer.files;
+              var ffiles = [];
+              for ( var i = 0, file = ofiles[0] ; i < ofiles.length ; i++, file = ofiles[i] )
+              {
+                ffiles.push(file);
+              }
+              callback(ffiles, e);
+            }            
           }
         }, false);
 
@@ -357,7 +398,7 @@ function no$$hashKey(key, val){
             iElement.removeClass('hover');
             setTimeout(function(){iElement.css('display', 'none');}, 300);
 
-            if ( scope.onLeave )
+            if ( droppable && scope.onLeave )
               scope.onLeave(e);
           }
         }, false);
@@ -365,7 +406,7 @@ function no$$hashKey(key, val){
         parent.addEventListener('dragend', function(e){
           iElement.removeClass('hover');
           iElement.css('display', 'none');
-          if ( scope.onEnd )
+          if ( droppable && scope.onEnd )
               scope.onEnd(e);
         }, false);
       }
@@ -403,7 +444,7 @@ function no$$hashKey(key, val){
     };
   };
 
-  var CardEditorController = function($scope, $rootScope, $modalInstance, Session, DB, Noty, recipe){
+  var CardEditorController = function($scope, $rootScope, $modalInstance, Session, DB, Noty, recipe, editable){
     var Recipe = function(){
       return {
         id: (Math.random() * 10000)|0,
@@ -434,6 +475,8 @@ function no$$hashKey(key, val){
       };
     };
 
+    $scope.userId = Session.getId();
+
     // Notice that any scope member here to be inherited must be a
     // non basic (numeric, boolean) type of object, and not null
     $scope.recipe = Recipe();
@@ -444,6 +487,8 @@ function no$$hashKey(key, val){
 
     $scope.addingNewIngredient = false;
     $scope.ingredientBeingEdited = null;
+
+    $scope.editor = editable;
     
     $scope.nameSelector = {
       createSearchChoice: function(term, data) {
@@ -648,7 +693,16 @@ function no$$hashKey(key, val){
       $rootScope.$broadcast('new-recipe', data);
 
       Noty.good("La recepta s'ha publicat.")
-    }
+    };
+
+    $scope.enableEditor = function(){
+      $scope.editor = true;
+    };
+
+    $scope.disableEditor = function(){
+      $scope.saveRecipe();
+      $scope.editor = false;
+    };
 
     if ( recipe )
     {
@@ -708,7 +762,18 @@ function no$$hashKey(key, val){
         Noty.error("L'usuari no existeix.");
     };
 
-    $scope.viewRecipe = function($event, card){ };
+    $scope.viewRecipe = function(data){
+      var cardViewer = $modal.open({
+        templateUrl: 'lib/receptes/tmpl/card.edit.html',
+        windowClass: 'card-view',
+        controller: CardEditorController,
+        scope: $scope,
+        resolve: {
+          recipe: function(){ return data; },
+          editable: function(){ return false; }
+        }
+      });
+    };
 
     $scope.openRecipeEditor = function(data){
       var cardViewer = $modal.open({
@@ -717,9 +782,8 @@ function no$$hashKey(key, val){
         controller: CardEditorController,
         scope: $scope,
         resolve: {
-          recipe: function(){
-            return data;
-          }
+          recipe: function(){ return data; },
+          editable: function(){ return true; }
         }
       });
     }
@@ -743,7 +807,7 @@ function no$$hashKey(key, val){
     };
 
     $scope.updateView = function(){
-      var recipes = DB.getPublishedRecipes();
+      var recipes = DB.getAllRecipes();
       $scope.recipes = [];
       recipes.forEach(function(r, i){
         $scope.recipes.push(Card(r, i));

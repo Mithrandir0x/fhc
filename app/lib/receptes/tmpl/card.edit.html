@@ -8,41 +8,44 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-4">
+      <div class="col-lg-4 col-sm-4">
         <div class="recipe-image-area">
           <div class="recipe-photo" ng-show="recipe.mainPhoto">
             <img ng-src="{{ recipe.mainPhoto }}">
-            <div class="remove-photo">
+            <div ng-show="editor" class="remove-photo">
               <span class="glyphicon glyphicon-remove" ng-click="removeMainPhoto()"></span>
             </div>
           </div>
           <div class="photo-placeholder" ng-show="!recipe.mainPhoto">
             <div class="photo-placeholder-border">
               <i class="icon ion-images"></i><br />
-              <span class="help-text">
+              <span ng-show="editor" class="help-text">
                 Arrosega una imatge<br />
                 des de l'escriptori
               </span>
             </div>
           </div>
-          <dropbox on-drop="setMainRecipePhoto"></dropbox>
+          <dropbox droppable="editor" on-drop="setMainRecipePhoto"></dropbox>
         </div>
         <div class="recipe-properties-area">
-          <div class="customers">
+          <div ng-show="editor" class="customers">
             Ingredients per a: <input type="number" ng-model="recipe.customersAmount" min="1" required>
+          </div>
+          <div ng-show="!editor" class="customers">
+            Ingredients per a {{ recipe.customersAmount|persones }}
           </div>
           <div class="ingredient-list">
             <span>Llista d'ingredients:</span>
             <ul>
               <li ng-repeat="i in recipe.ingredients">
                 {{ i|ingredient }}
-                <span class="glyphicon glyphicon-pencil pointer" ng-click="openIngredientEditor(i)"></span>
-                <span class="glyphicon glyphicon-trash pointer" ng-click="removeIngredient(i)"></span>
+                <span ng-show="editor" class="glyphicon glyphicon-pencil pointer" ng-click="openIngredientEditor(i)"></span>
+                <span ng-show="editor" class="glyphicon glyphicon-trash pointer" ng-click="removeIngredient(i)"></span>
               </li>
             </ul>
           </div>
           <div class="recipe-ingredients">
-            <button ng-show="!addingNewIngredient" class="btn btn-primary btn-block" ng-click="openIngredientEditor()">
+            <button ng-show="!addingNewIngredient && editor" class="btn btn-primary btn-block" ng-click="openIngredientEditor()">
               <span class="glyphicon glyphicon-plus"></span>
               Afegir nou ingredient
             </button>
@@ -78,8 +81,8 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-8">
-        <div>
+      <div class="col-lg-8 col-sm-8">
+        <div ng-show="editor">
           <button class="btn btn-default btn-sm" ng-click="viewRecipeCode()">
             <span class="glyphicon glyphicon-file"></span>
             Veure codi recepta
@@ -96,38 +99,48 @@
             <span class="glyphicon glyphicon-cloud-upload"></span>
             Publicar
           </button>
+          <button class="btn btn-default btn-sm" ng-click="disableEditor()">
+            <span class="glyphicon glyphicon-ok"></span>
+            Finalitzar edició
+          </button>
+        </div>
+        <div ng-show="!editor && userId == recipe.authorId">
+          <button class="btn btn-default btn-sm" ng-click="enableEditor()">
+            <span class="glyphicon glyphicon-pencil"></span>
+            Editar la recepta
+          </button>
         </div>
         <div class="recipe-body-content">
-          <h1 contenteditable do-not-allow-line-breaks="true" placeholder="Escriu el títol de la recepta" ng-model="recipe.title"></h1>
+          <h1 contenteditable editable="editor" do-not-allow-line-breaks="true" placeholder="Escriu el títol de la recepta" ng-model="recipe.title"></h1>
           <div class="recipe-step row" ng-repeat="s in recipe.steps">
-            <div class="col-lg-8">
-              <span class="glyphicon glyphicon-remove pointer" ng-click="removeRecipeStep(s)"></span>
-              <h3 contenteditable do-not-allow-line-breaks="true" placeholder="Escriu el títol del pas" ng-model="s.title"></h3>
-              <p contenteditable placeholder="Escriu la descripció del pas de recepta" ng-model="s.description"></p>
+            <div class="col-lg-8 col-sm-6">
+              <span ng-show="editor" class="glyphicon glyphicon-remove pointer" ng-click="removeRecipeStep(s)"></span>
+              <h3 contenteditable editable="editor" do-not-allow-line-breaks="true" placeholder="Escriu el títol del pas" ng-model="s.title"></h3>
+              <p contenteditable editable="editor" placeholder="Escriu la descripció del pas de recepta" ng-model="s.description"></p>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4 col-sm-6">
               <div class="recipe-image-area">
                 <div class="recipe-photo" ng-show="s.photo">
                   <img ng-src="{{ s.photo }}">
-                  <div class="remove-photo">
+                  <div ng-show="editor" class="remove-photo">
                     <span class="glyphicon glyphicon-remove" ng-click="removeStepPhoto(s)"></span>
                   </div>
                 </div>
                 <div class="photo-placeholder" ng-show="!s.photo">
                   <div class="photo-placeholder-border">
                     <i class="icon ion-images"></i><br />
-                    <span class="help-text">
+                    <span ng-show="editor" class="help-text">
                       Arrosega una imatge<br />
                       des de l'escriptori
                     </span>
                   </div>
                 </div>
-                <dropbox on-drop-exp="setStepPhoto(s)"></dropbox>
+                <dropbox droppable="editor" on-drop-exp="setStepPhoto(s)"></dropbox>
               </div>
             </div>
           </div>
         </div>
-        <button class="btn btn-primary btn-lg btn-block" ng-click="createRecipeStep()">
+        <button ng-show="editor" class="btn btn-primary btn-lg btn-block" ng-click="createRecipeStep()">
           <span class="glyphicon glyphicon-plus"></span>
           Afegir nou pas de recepta
         </button>
