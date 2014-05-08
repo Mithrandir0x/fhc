@@ -133,9 +133,11 @@ Taken from: http://codepen.io/flesler/pen/AEIFc
 
 .recipe-image-area .photo-placeholder
 {
-    border: 1px solid #f0f;
-    text-align: center;
+    /* border: 1px solid #f0f; */
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px dashed rgba(0, 0, 0, 0.4);
     padding: 32px;
+    text-align: center;
 }
 
 .recipe-image-area .recipe-photo
@@ -151,7 +153,6 @@ Taken from: http://codepen.io/flesler/pen/AEIFc
 .recipe-image-area .remove-photo
 {
     cursor: pointer;
-    color: red;
     display: none;
     font-size: 32px;
     left: 24px;
@@ -171,7 +172,7 @@ Taken from: http://codepen.io/flesler/pen/AEIFc
 
 .recipe-image-area .photo-placeholder .photo-placeholder-border
 {
-    border: 1px solid #f0f;
+    /* border: 1px solid #f0f; */
     display: inline-block;
     padding: 16px;
 }

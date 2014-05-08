@@ -12,7 +12,7 @@
         <div class="recipe-image-area">
           <div class="recipe-photo" ng-show="recipe.mainPhoto">
             <img ng-src="{{ recipe.mainPhoto }}">
-            <div ng-show="editor" class="remove-photo">
+            <div ng-show="editor" class="remove-photo text-primary">
               <span class="glyphicon glyphicon-remove" ng-click="removeMainPhoto()"></span>
             </div>
           </div>
@@ -82,6 +82,9 @@
         </div>
       </div>
       <div class="col-lg-8 col-sm-8">
+        <button class="btn btn-link btn-lg" style="position: absolute; top: 0; right: 0;" ng-click="closeEditor()">
+          <span class="glyphicon glyphicon-remove"></span>
+        </button>
         <div ng-show="editor">
           <button class="btn btn-default btn-sm" ng-click="viewRecipeCode()">
             <span class="glyphicon glyphicon-file"></span>

@@ -589,7 +589,7 @@ function no$$hashKey(key, val){
       var i = ingredients.indexOf(ingredient);
       ingredients.splice(i, 1);
 
-      if ( $scope.ingredientBeingEdited == i )
+      if ( $scope.ingredientBeingEdited == ingredient )
         $scope.closeIngredientEditor();
     };
 
@@ -686,13 +686,15 @@ function no$$hashKey(key, val){
     };
 
     $scope.publishRecipe = function(){
+      // Validate user input
+
       $scope.recipe.published = true;
       var data = JSON.parse(JSON.stringify($scope.recipe, no$$hashKey));
       DB.saveRecipe(data);
       $modalInstance.close();
       $rootScope.$broadcast('new-recipe', data);
 
-      Noty.good("La recepta s'ha publicat.")
+      Noty.good("La recepta s'ha publicat.");
     };
 
     $scope.enableEditor = function(){
@@ -702,6 +704,10 @@ function no$$hashKey(key, val){
     $scope.disableEditor = function(){
       $scope.saveRecipe();
       $scope.editor = false;
+    };
+
+    $scope.closeEditor = function(){
+      $modalInstance.close();
     };
 
     if ( recipe )
@@ -768,6 +774,8 @@ function no$$hashKey(key, val){
         windowClass: 'card-view',
         controller: CardEditorController,
         scope: $scope,
+        keyboard: false,
+        backdrop: 'static',
         resolve: {
           recipe: function(){ return data; },
           editable: function(){ return false; }
@@ -780,6 +788,8 @@ function no$$hashKey(key, val){
         templateUrl: 'lib/receptes/tmpl/card.edit.html',
         windowClass: 'card-view',
         controller: CardEditorController,
+        keyboard: false,
+        backdrop: 'static',
         scope: $scope,
         resolve: {
           recipe: function(){ return data; },
@@ -854,7 +864,7 @@ function no$$hashKey(key, val){
 
     $rootScope.$on('$viewContentLoaded', function() {
       $templateCache.removeAll();
-   });
+    });
   });
 
 })(angular.module('receptes', [
