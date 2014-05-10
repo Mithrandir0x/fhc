@@ -45,11 +45,11 @@
             </ul>
           </div>
           <div class="recipe-ingredients">
-            <button ng-show="!addingNewIngredient && editor" class="btn btn-primary btn-block" ng-click="openIngredientEditor()">
+            <button ng-show="editor && !addingNewIngredient" class="btn btn-primary btn-block" ng-click="openIngredientEditor()">
               <span class="glyphicon glyphicon-plus"></span>
               Afegir nou ingredient
             </button>
-            <div ng-show="addingNewIngredient" style="text-align: right;">
+            <div ng-show="editor && addingNewIngredient" style="text-align: right;">
               <input type="hidden" ui-select2="nameSelector" ng-model="newIngredient.name" placeholder="Escriu l'ingredient que vols afegir" style="width: 100%; margin-bottom: 16px; text-align: left;">
               <div class="ingredient-value-type" ng-show="newIngredient.name">
                 <div class="form-group">
@@ -119,7 +119,7 @@
             <div class="col-lg-8 col-sm-6">
               <span ng-show="editor" class="glyphicon glyphicon-remove pointer" ng-click="removeRecipeStep(s)"></span>
               <h3 contenteditable editable="editor" do-not-allow-line-breaks="true" placeholder="Escriu el títol del pas" ng-model="s.title"></h3>
-              <p contenteditable editable="editor" placeholder="Escriu la descripció del pas de recepta" ng-model="s.description"></p>
+              <div contenteditable editable="editor" placeholder="Escriu la descripció del pas de recepta" ng-model="s.description"></div>
             </div>
             <div class="col-lg-4 col-sm-6">
               <div class="recipe-image-area">

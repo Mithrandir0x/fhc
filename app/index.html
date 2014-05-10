@@ -7,9 +7,10 @@
     <link href='http://fonts.googleapis.com/css?family=Gochi+Hand' rel='stylesheet' type='text/css'>
     <link href="lib/bootstrap/css/3.1.1.css" rel="stylesheet" media="screen" >
     <link href="lib/ionicons/css/ionicons.css" rel="stylesheet" media="screen" >
+    <link href="lib/font-awesome/css/4.0.3.css" rel="stylesheet" media="screen" >
     <link href="lib/select2/select2.css" rel="stylesheet" media="screen" >
     <link href="lib/select2/select2-bootstrap-3.css" rel="stylesheet" media="screen" >
-    <link href="lib/animate.css" rel="stylesheet" media="screen" >
+    <link href="lib/popline/css/default.css" rel="stylesheet" media="screen" >
     <link href="lib/receptes/styles.css" rel="stylesheet" media="screen" >
     <script type="text/javascript" src="lib/jquery.js"></script>
     <script type="text/javascript" src="lib/angular.js"></script>
@@ -18,6 +19,13 @@
     <script type="text/javascript" src="lib/angularui/ui-bootstrap-tpls-0.10.0.js"></script>
     <script type="text/javascript" src="lib/angularui/ui-select2-0.0.5.js"></script>
     <script type="text/javascript" src="lib/noty/2.2.2.packaged.js"></script>
+    <script type="text/javascript" src="lib/popline/0.0.1.js"></script>
+    <script type="text/javascript" src="lib/popline/plugins/backcolor.js"></script>
+    <script type="text/javascript" src="lib/popline/plugins/blockformat.js"></script>
+    <script type="text/javascript" src="lib/popline/plugins/blockquote.js"></script>
+    <script type="text/javascript" src="lib/popline/plugins/decoration.js"></script>
+    <script type="text/javascript" src="lib/popline/plugins/justify.js"></script>
+    <script type="text/javascript" src="lib/popline/plugins/list.js"></script>
     <script type="text/javascript" src="lib/receptes/app.js"></script>
   </head>
   <body ng-controller="HomeController" class="bg-pattern-sativa">
@@ -28,7 +36,7 @@
             <div class="input-group">
               <input type="text" ng-model="searchText" class="form-control" placeholder="Cercar receptes">
               <div class="input-group-btn">
-                <button type="submit" class="btn btn-default">
+                <button type="submit" ng-click="toggleSearchForm()" class="btn btn-default">
                   <span class="caret"></span>
                 </button>
                 <button type="submit" class="btn btn-default">
@@ -36,9 +44,19 @@
                 </button>
               </div>
             </div>
+            <ul class="dropdown-menu" role="menu" ng-show="searchForm" style="display: block; left: 30px; top: 44px; text-align: left; width: 482px;">
+              <li style="padding: 2px 12px 2px 12px;">
+                <p>Vull que apareguin aquests ingredients:</p>
+                <input type="hidden" class="form-control" ui-select2="ingredientSelector" placeholder="Escriu els ingredients que vols" ng-model="searchQuery.ingredients"  style="text-align: left;">
+                <button class="btn btn-primary btn-block" style="margin-top: 12px;">
+                  <span class="glyphicon glyphicon-search"></span>
+                  Cercar ingredients amb aquests criteris
+                </button>
+              </li>
+            </ul>
           </div>
         </form>
-        <a class="navbar-brand" href="#">receptes.cat</a>
+        <a class="navbar-brand" href="#!/">receptes.cat</a>
         <div ng-show="login" class="navbar-right user-area">
           <img ng-src="{{ userAvatar }}" class="img-rounded user-avatar">
           <span class="user-name">{{ userName }}</span>

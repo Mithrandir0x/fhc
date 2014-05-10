@@ -267,17 +267,21 @@ function no$$hashKey(key, val){
 
       return '';
     }
-  })
+  });
 
   module.directive("contenteditable", function(){
     return {
       restrict: "A",
       require: "ngModel",
       scope: {
+        popline: '@',
         doNotAllowLineBreaks: '@',
         editable: '='
       },
       link: function(scope, element, attrs, ngModel){
+        if ( scope.popline )
+          element.popline();
+
         function read() {
           ngModel.$setViewValue(element.html());
         };
@@ -295,10 +299,18 @@ function no$$hashKey(key, val){
 
         scope.$watch('editable', function(editable){
           if ( editable )
+          {
             element.attr('contenteditable', '');
+            if ( scope.popline )
+              element.popline();
+          }
           else
+          {
             element.removeAttr('contenteditable');
-        })
+            if ( scope.popline )
+              element.popline('destroy');
+          }
+        });
 
         element.bind("blur keyup change", function(){
           if ( scope.editable )
@@ -702,6 +714,7 @@ function no$$hashKey(key, val){
     };
 
     $scope.disableEditor = function(){
+      $scope.closeIngredientEditor();
       $scope.saveRecipe();
       $scope.editor = false;
     };
@@ -768,6 +781,19 @@ function no$$hashKey(key, val){
         Noty.error("L'usuari no existeix.");
     };
 
+    $scope.ingredientSelector = {
+      query: function(query){
+        var data = { results: DB.getIngredientsThatContains(query.term.toLowerCase()) };
+        query.callback(data);
+      },
+      allowClear: true,
+      multiple: true
+    };
+
+    $scope.searchQuery = {
+      ingredients: null
+    };
+
     $scope.viewRecipe = function(data){
       var cardViewer = $modal.open({
         templateUrl: 'lib/receptes/tmpl/card.edit.html',
@@ -783,6 +809,11 @@ function no$$hashKey(key, val){
       });
     };
 
+    $scope.searchForm = false;
+    $scope.toggleSearchForm = function(){
+      $scope.searchForm = !$scope.searchForm;
+    };
+
     $scope.openRecipeEditor = function(data){
       var cardViewer = $modal.open({
         templateUrl: 'lib/receptes/tmpl/card.edit.html',
@@ -796,7 +827,7 @@ function no$$hashKey(key, val){
           editable: function(){ return true; }
         }
       });
-    }
+    };
 
     $scope.createRecipe = function(){
       $scope.openRecipeEditor();
