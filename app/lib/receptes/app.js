@@ -14,9 +14,10 @@ function no$$hashKey(key, val){
       ingredients: [],
       measures: [
         'Abstracta',
+        'Unitats',
         'Pes (gr)',
         'Volum (ml)',
-        'Unitats'
+        'Volum (l)'
       ],
       abstractMeasures: [
         'Un pessic',
@@ -224,8 +225,9 @@ function no$$hashKey(key, val){
     };
     
     var measures = {
-      '2': 'gr',
-      '3': 'ml'
+      '3': 'gr',
+      '4': 'ml',
+      '5': 'l'
     };
     var valueParser = function(ingredient){
       var name = ingredient.name;
@@ -247,7 +249,7 @@ function no$$hashKey(key, val){
     return function(input){
       if ( input.measure == 1 )
         return abstractParser(input);
-      else if ( input.measure == 4 )
+      else if ( input.measure == 2 )
         return unitParser(input);
       else
         return valueParser(input);

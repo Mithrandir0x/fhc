@@ -1,6 +1,6 @@
 <div class="modal-body">
   <div class="container-fluid">
-    <div ng-show="showCode" class="row">
+    <div ng-show="editor && showCode" class="row">
       <div class="col-lg-12">
         <pre class="pre-scrollable" style="word-wrap: break-word;" ng-click="selectText($event)">
 {{ recipeCode }}
@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-4 col-sm-4">
+      <div class="col-lg-3 col-sm-4">
         <div class="recipe-image-area">
           <div class="recipe-photo" ng-show="recipe.mainPhoto">
             <img ng-src="{{ recipe.mainPhoto }}">
@@ -29,7 +29,7 @@
         </div>
         <div class="recipe-properties-area">
           <div ng-show="editor" class="customers">
-            Ingredients per a: <input type="number" ng-model="recipe.customersAmount" min="1" required>
+            Ingredients per a: <input type="number" style="width: 48px;" ng-model="recipe.customersAmount" min="1" required>
           </div>
           <div ng-show="!editor" class="customers">
             Ingredients per a {{ recipe.customersAmount|persones }}
@@ -40,7 +40,7 @@
               <li ng-repeat="i in recipe.ingredients">
                 {{ i|ingredient }}
                 <span ng-show="editor" class="glyphicon glyphicon-pencil pointer" ng-click="openIngredientEditor(i)"></span>
-                <span ng-show="editor" class="glyphicon glyphicon-trash pointer" ng-click="removeIngredient(i)"></span>
+                <span ng-show="editor" class="glyphicon glyphicon-remove pointer" ng-click="removeIngredient(i)"></span>
               </li>
             </ul>
           </div>
@@ -81,7 +81,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-8 col-sm-8">
+      <div class="col-lg-9 col-sm-8">
         <button class="btn btn-link btn-lg" style="position: absolute; top: 0; right: 0;" ng-click="closeEditor()">
           <span class="glyphicon glyphicon-remove"></span>
         </button>
@@ -115,11 +115,11 @@
         </div>
         <div class="recipe-body-content">
           <h1 contenteditable editable="editor" do-not-allow-line-breaks="true" placeholder="Escriu el títol de la recepta" ng-model="recipe.title"></h1>
-          <div class="recipe-step row" ng-repeat="s in recipe.steps">
+          <div class="recipe-step row" ng-repeat="s in recipe.steps" style="position: relative;">
             <div class="col-lg-8 col-sm-6">
-              <span ng-show="editor" class="glyphicon glyphicon-remove pointer" ng-click="removeRecipeStep(s)"></span>
-              <h3 contenteditable editable="editor" do-not-allow-line-breaks="true" placeholder="Escriu el títol del pas" ng-model="s.title"></h3>
-              <div contenteditable editable="editor" placeholder="Escriu la descripció del pas de recepta" ng-model="s.description"></div>
+              <span ng-show="editor" style="position: absolute; left: -6px; top: 5px;" class="glyphicon glyphicon-remove pointer" ng-click="removeRecipeStep(s)"></span>
+              <h3 contenteditable editable="editor" do-not-allow-line-breaks="true" placeholder="Escriu el títol del pas" ng-model="s.title" style="margin-top: 0;"></h3>
+              <div contenteditable popline="true" editable="editor" placeholder="Escriu la descripció del pas de recepta" ng-model="s.description"></div>
             </div>
             <div class="col-lg-4 col-sm-6">
               <div class="recipe-image-area">

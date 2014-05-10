@@ -125,6 +125,27 @@ Taken from: http://codepen.io/flesler/pen/AEIFc
     width: 90%;
 }
 
+@media (min-width: 1280px) {
+    .card-view .modal-dialog
+    {
+        width: 85%;
+    }
+}
+
+@media (min-width: 1500px) {
+    .card-view .modal-dialog
+    {
+        width: 75%;
+    }
+}
+
+@media (min-width: 1730px) {
+    .card-view .modal-dialog
+    {
+        width: 65%;
+    }
+}
+
 .recipe-image-area
 {
     margin-bottom: 16px;

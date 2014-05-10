@@ -1,24 +1,5 @@
 [
   {
-    "id": 1,
-    "title": "Torrijas",
-    "authorId": 2,
-    "published": true,
-    "authorName": "Usuari",
-    "mainPhoto": "res/img/torrija-000-low.jpg",
-    "customersAmount": 2,
-    "ingredients": [
-      {
-        "id": 148,
-        "name": "oli d'oliva",
-        "measure": 3,
-        "quantity": 23
-      }
-    ],
-    "steps": [
-    ]
-  },
-  {
     "id": 2,
     "title": "aquest és el títol de la recepta",
     "authorId": 1,
@@ -44,18 +25,18 @@
         }
       }
     ],
-    "mainPhoto": "res/img/torrija-000-low.jpg",
+    "mainPhoto": "res/img/1397638285248.jpg",
     "customersAmount": 34,
     "steps": [
       {
         "title": "El primer pas de la recepta és no contar-ho",
         "description": "La primera regla del club de la <b>tautologia</b> és la primera regla.<div><br></div><div>Tot i que no tindria que estar parlant d'una recepta de cuina?</div>",
-        "photo": null
+        "photo": "res/img/1395419254254.gif"
       },
       {
         "title": "Acabo de pensar que seria una bona idea parlar sobre cuestions morals més interessants...",
-        "description": "Amb <b>un text descriptiu</b> sense imatge!<div><br></div><div>No sé com possar altres parts del text en altres formats que no siguin negreta...</div>",
-        "photo": null
+        "description": "Amb <b>un text descriptiu</b> sense imatge!<div><br></div><div>No sé com possar altres parts <b>del text en altres for</b>mats que no siguin <strike>negreta</strike>...</div>",
+        "photo": "res/img/tumblr_inline_mylq6j4lsc1raprkq.gif"
       }
     ]
   },
@@ -65,17 +46,46 @@
     "authorId": 1,
     "published": false,
     "authorName": "Usuari",
-    "mainPhoto": "res/img/torrija-000-low.jpg",
-    "customersAmount": 2,
     "ingredients": [
       {
-        "id": 148,
-        "name": "oli d'oliva",
-        "measure": 3,
-        "quantity": 23
+        "id": "Barra de pa per torrijas",
+        "name": "Barra de pa per torrijas",
+        "measure": 2,
+        "quantity": 1
+      },
+      {
+        "id": 113,
+        "name": "llet sencera",
+        "measure": 1,
+        "quantity": {
+          "id": 2,
+          "text": "Una cullerada"
+        }
       }
     ],
+    "mainPhoto": "res/img/torrija-000-low.jpg",
+    "customersAmount": 8,
     "steps": [
+      {
+        "title": "Tallar el pa a rodanxes i remullar-les amb llet i canyella",
+        "description": "Qua<span style=\"line-height: 1.42857143;\">lsevol pa no serveix per fer torrijas. Per exemple, el bimbo es trenca amb molta facilitat una vegada es remulla amb la llet. I la típica baguette tampoc ens serveix, ja que la seva massa no ofereix una bona textura al final, quedant poc sucosa.</span><div><span style=\"line-height: 1.42857143;\"><br></span></div><div>És recomanable que la llet s'hagi escalfat prèviament, afegint dues barretes de canyella.</div><div><br></div>",
+        "photo": "res/img/torrijas-step-1-high.jpg"
+      },
+      {
+        "title": "Escalfar l'oli i posar les rodanxes en ou",
+        "description": "Al mateix temps que posem una bona quantitat d'oli a la sartén i el deixem que es vagi escalfant, en un plat, trenquem dos ous i els batem per remullar les rodanxes de pa, xopes de llet amb canyella.<div><br></div><div>No cal empapar-les massa d'ou. Una vegada ja estigui prou escalfat l'oli, fregim les torrijas.</div>",
+        "photo": "res/img/torrijas-step-2-high.jpg"
+      },
+      {
+        "title": "Fregim les torrijas",
+        "description": "Quant l'oli estigui prou escalfat, ja podem anar fregint les rodanxes barrejades amb ou.<div><br></div><div>Aquí és on podem veure clarament la qualitat del pa que hem escollit per fer les torrijas.</div><div><br></div><div>Una vegada ja estiguin en el punt daurat com es pot veure a la imatge, les podem treure, deixant-les en un plat amb un tovalló que vagi absorbint les restes d'oli.</div><div><br></div>",
+        "photo": "res/img/torrijas-step-3-high.jpg"
+      },
+      {
+        "title": "Deixar reposar, i escampar sucre",
+        "description": "Tradicionalment, es fa amb sucre, però banyades en mel estan realment bones.<div><br></div><div>És molt recomanable menjar-les en pocs dies, donat que es seca amb certa facilitat.</div>",
+        "photo": "res/img/torrijas-step-4-high.jpg"
+      }
     ]
   }
 ]
