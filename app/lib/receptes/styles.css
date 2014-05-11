@@ -219,6 +219,30 @@ Taken from: http://codepen.io/flesler/pen/AEIFc
     transition: all 0.3s ease-in-out;
 }
 
+.recipe-step
+{
+    align-items: center;
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.recipe-step h3
+{
+    margin-top: 0;
+}
+
+.recipe-step .remove-step
+{
+    left: -6px;
+    position: absolute;
+    top: 5px;
+}
+
 .recipe-step .recipe-photo img
 {
     width: 100%;
