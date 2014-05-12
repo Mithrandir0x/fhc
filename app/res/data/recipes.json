@@ -58,8 +58,8 @@
         "name": "llet sencera",
         "measure": 1,
         "quantity": {
-          "id": 2,
-          "text": "Una cullerada"
+          "id": "Mig litre",
+          "text": "Mig litre"
         }
       }
     ],
@@ -85,6 +85,320 @@
         "title": "Deixar reposar, i escampar sucre",
         "description": "Tradicionalment, es fa amb sucre, però banyades en mel estan realment bones.<div><br></div><div>És molt recomanable menjar-les en pocs dies, donat que es seca amb certa facilitat.</div>",
         "photo": "res/img/torrijas-step-4-high.jpg"
+      }
+    ]
+  },
+  {
+    "id": 9255,
+    "title": "Macarrons al dente amb tomaquet",
+    "authorId": 1,
+    "published": false,
+    "authorName": "Jack Nicholson",
+    "ingredients": [
+      {
+        "id": 171,
+        "name": "pernil",
+        "measure": 1,
+        "quantity": {
+          "id": "4 talls",
+          "text": "4 talls"
+        }
+      },
+      {
+        "id": 128,
+        "name": "mel",
+        "measure": 1,
+        "quantity": {
+          "id": "tres cullerades",
+          "text": "tres cullerades"
+        }
+      },
+      {
+        "id": 147,
+        "name": "oli",
+        "measure": 1,
+        "quantity": {
+          "id": "Un raig",
+          "text": "Un raig"
+        }
+      },
+      {
+        "id": 232,
+        "name": "vinagre",
+        "measure": 1,
+        "quantity": {
+          "id": "Un raig",
+          "text": "Un raig"
+        }
+      }
+    ],
+    "mainPhoto": "res/img/macarrons.jpg",
+    "customersAmount": 1,
+    "steps": [
+      {
+        "title": null,
+        "description": "<strong></strong>\n                            <div><p>Fregiu el pernil i reserveu-lo</p></div>",
+        "photo": "res/img/macarrons-step-1.jpg"
+      },
+      {
+        "title": null,
+        "description": "A la mateixa paella tireu-hi el vinagre i la mel, remeneu-ho i deixeu-ho fins que el vinagre perdi la fortor. ",
+        "photo": null
+      },
+      {
+        "title": null,
+        "description": "Aboqueu-ho sobre el pernil i serviu-ho molt calent.<br>",
+        "photo": null
+      }
+    ]
+  },
+  {
+    "id": 4643,
+    "title": "Talls de pernil agredolç",
+    "authorId": 1,
+    "published": false,
+    "authorName": "Jack Nicholson",
+    "ingredients": [
+      {
+        "id": 117,
+        "name": "macarrons",
+        "measure": 3,
+        "quantity": 320
+      },
+      {
+        "id": "tomaquets",
+        "name": "tomaquets",
+        "measure": 2,
+        "quantity": 2
+      },
+      {
+        "id": 45,
+        "name": "ceba",
+        "measure": 2,
+        "quantity": 1
+      },
+      {
+        "id": 42,
+        "name": "carn picada",
+        "measure": 3,
+        "quantity": 200
+      },
+      {
+        "id": "llorer",
+        "name": "llorer",
+        "measure": 1,
+        "quantity": {
+          "id": 1,
+          "text": "Un pessic"
+        }
+      },
+      {
+        "id": 147,
+        "name": "oli",
+        "measure": 1,
+        "quantity": {
+          "id": 2,
+          "text": "Una cullerada"
+        }
+      },
+      {
+        "id": 196,
+        "name": "sal",
+        "measure": 1,
+        "quantity": {
+          "id": 1,
+          "text": "Un pessic"
+        }
+      }
+    ],
+    "mainPhoto": "res/img/pernil-agredolc.jpg",
+    "customersAmount": 3,
+    "steps": [
+      {
+        "title": "<br>",
+        "description": "Enrossiu la carn amb oli, afegiu-hi la ceba, l’all i els tomàquets, i ho feu coure tot junt fins que la carn estigui cuita.<br>Si abans que la carn quedi cuita s’ha evaporat tot el líquid, podeu afegir miques d’aigua de bullir els macarrons.",
+        "photo": "res/img/pernil-agredolc-step-1.jpg"
+      },
+      {
+        "title": null,
+        "description": "Enrossiu la carn amb oli, afegiu-hi la ceba, l’all i els tomàquets, i ho feu coure tot junt fins que la carn estigui cuita.<br>Si abans que la carn quedi cuita s’ha evaporat tot el líquid, podeu afegir miques d’aigua de bullir els macarrons.",
+        "photo": null
+      },
+      {
+        "title": null,
+        "description": "barregeu-ho amb els macarrons i ja els teniu apunt. Bon Profit<br>",
+        "photo": null
+      }
+    ]
+  },
+  {
+    "id": 1429,
+    "title": "Massa per a pizzes",
+    "authorId": 1,
+    "published": true,
+    "authorName": "Jack Nicholson",
+    "ingredients": [
+      {
+        "id": 71,
+        "name": "farina",
+        "measure": 3,
+        "quantity": 500
+      },
+      {
+        "id": 196,
+        "name": "sal",
+        "measure": 1,
+        "quantity": {
+          "id": 1,
+          "text": "Un pessic"
+        }
+      },
+      {
+        "id": "llevat",
+        "name": "llevat",
+        "measure": 1,
+        "quantity": {
+          "id": "Un sobre",
+          "text": "Un sobre"
+        }
+      },
+      {
+        "id": 0,
+        "name": "aigua",
+        "measure": 1,
+        "quantity": {
+          "id": "Un got",
+          "text": "Un got"
+        }
+      }
+    ],
+    "mainPhoto": "res/img/massa-pizza.jpg",
+    "customersAmount": 1,
+    "steps": [
+      {
+        "title": "Barrejar ingredients<br>",
+        "description": "Fem una muntanya amb la farina, un polsim de sal, la llebadura i afegim aigua<br>",
+        "photo": null
+      },
+      {
+        "title": "Pastar<br>",
+        "description": "Anem pastant tots els ingredients amb les mans fins que ens quedi una \nmassa compacte. Si veiem que no queda una massa humida i compacta, \nafegim <span class=\"hiddenGrammarError\">mes aigua</span>. Un cop teniu una massa compacta, acabarem l'pastat\n intentant realitzar una bola portant els extrems de la massa cap al \ncentre, repetidament i anant afegint una mica de farina fins que la \nmassa no s'enganxi.",
+        "photo": null
+      }
+    ]
+  },
+  {
+    "id": 1644,
+    "title": "Escudella",
+    "authorId": 1,
+    "published": false,
+    "authorName": "Jack Nicholson",
+    "ingredients": [
+      {
+        "id": "Pollastre",
+        "name": "Pollastre",
+        "measure": 1,
+        "quantity": {
+          "id": "mig",
+          "text": "mig"
+        }
+      },
+      {
+        "id": 0,
+        "name": "aigua",
+        "measure": 1,
+        "quantity": {
+          "id": "Una olla",
+          "text": "Una olla"
+        }
+      },
+      {
+        "id": "verdures",
+        "name": "verdures",
+        "measure": 1,
+        "quantity": {
+          "id": "preparat per a caldo",
+          "text": "preparat per a caldo"
+        }
+      },
+      {
+        "id": "Qualsevol peça de carn que tinguis a la nevera",
+        "name": "Qualsevol peça de carn que tinguis a la nevera",
+        "measure": 2,
+        "quantity": 1
+      },
+      {
+        "id": 148,
+        "name": "oli d'oliva",
+        "measure": 1,
+        "quantity": {
+          "id": 2,
+          "text": "Una cullerada"
+        }
+      },
+      {
+        "id": "carn picada de vedella",
+        "name": "carn picada de vedella",
+        "measure": 3,
+        "quantity": 100
+      },
+      {
+        "id": "carn picada de porc",
+        "name": "carn picada de porc",
+        "measure": 3,
+        "quantity": 100
+      },
+      {
+        "id": "pa sec",
+        "name": "pa sec",
+        "measure": 1,
+        "quantity": {
+          "id": "Unes llesques",
+          "text": "Unes llesques"
+        }
+      },
+      {
+        "id": 109,
+        "name": "llet",
+        "measure": 1,
+        "quantity": {
+          "id": "Una mica",
+          "text": "Una mica"
+        }
+      },
+      {
+        "id": "botifarra negra",
+        "name": "botifarra negra",
+        "measure": 2,
+        "quantity": 1
+      },
+      {
+        "id": "patates",
+        "name": "patates",
+        "measure": 1,
+        "quantity": {
+          "id": "2",
+          "text": "2"
+        }
+      }
+    ],
+    "mainPhoto": "res/img/escudella.jpg",
+    "customersAmount": 1,
+    "steps": [
+      {
+        "title": "Fer les mandonguilles<br>",
+        "description": "Barregem en un vol els la carn picada de porc i de vedella, una o dos llesques de pà i tirem un bon rajolinet de llet per sobre. Deixem un momentet fins que el pa s'estobi i pastem la carn amb la llet i el pà fins que el pa ens quedi ben diluit.<br>Un cop ben barrejat, agafem i fem les diferents pilotes de la mida que desitgem i ho arrebossem amb farina.<br>",
+        "photo": "res/img/escudella-step-1.jpg"
+      },
+      {
+        "title": "Preparació caldo<br>",
+        "description": "En una olla suficient-ment gran, l'omplim d'aigua fins a 3/4 i afegim tots els ingredients exepte la botifarra negra i deixem que tot el contingut bulli aproximadament 1 h i 30 min, passada aquest temps afegim la botifarra negra i deixem que bulli 30 minuts mes.<br>",
+        "photo": null
+      },
+      {
+        "title": "Pasta i emplatat<br>",
+        "description": "Un cop tenim el caldo fet, podem separar la carn d'olla i guardar-ho en una safata i el caldo reserbar-lo en una olla on bullirem la pasta desitjada<br>",
+        "photo": null
       }
     ]
   }

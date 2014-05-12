@@ -121,11 +121,11 @@
               <h3 contenteditable editable="editor" do-not-allow-line-breaks="true" placeholder="Escriu el títol del pas" ng-model="s.title"></h3>
               <div contenteditable popline="true" editable="editor" placeholder="Escriu la descripció del pas de recepta" ng-model="s.description"></div>
             </div>
-            <div class="col-lg-4 col-sm-6">
+            <div ng-show="editor || s.photo" class="col-lg-4 col-sm-6">
               <div class="recipe-image-area">
                 <div class="recipe-photo" ng-show="s.photo">
                   <img ng-src="{{ s.photo }}">
-                  <div ng-show="editor" class="remove-photo">
+                  <div ng-show="editor" class="remove-photo text-primary">
                     <span class="glyphicon glyphicon-remove" ng-click="removeStepPhoto(s)"></span>
                   </div>
                 </div>
