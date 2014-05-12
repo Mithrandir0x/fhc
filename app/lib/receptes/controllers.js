@@ -379,10 +379,6 @@ function no$$hashKey(key, val){
       }
     });
 
-    $scope.$watch('searchQuery.ingredients', function(value){
-      console.log(value);
-    });
-
     $scope.searchRecipes = function(){
       var title = $scope.searchQuery.text;
       var ingredients = [];
