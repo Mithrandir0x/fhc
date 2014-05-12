@@ -321,6 +321,11 @@ function no$$hashKey(key, val){
 
     $scope.recipes = [];
 
+    $scope.searchQuery = {
+      text: null,
+      ingredients: null
+    };
+
     var loginWithUsername = null;
 
     var Card = function(r, i){
@@ -374,18 +379,20 @@ function no$$hashKey(key, val){
       }
     });
 
-    $scope.searchQuery = {
-      text: null,
-      ingredients: null
-    };
+    $scope.$watch('searchQuery.ingredients', function(value){
+      console.log(value);
+    });
 
     $scope.searchRecipes = function(){
       var title = $scope.searchQuery.text;
       var ingredients = [];
 
-      $scope.searchQuery.ingredients.forEach(function(i){
-        ingredients.push(i.text);
-      });
+      if ( $scope.searchQuery.ingredients )
+      {
+        $scope.searchQuery.ingredients.forEach(function(i){
+          ingredients.push(i.text);
+        });
+      }
 
       var recipes = DB.getRecipesWith(title, ingredients);
       $scope.updateView(recipes);

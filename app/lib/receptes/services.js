@@ -125,8 +125,10 @@
         var l = db.recipes;
         if ( title )
         {
+          title = title.toLowerCase();
           l = l.filter(function(r){
-            return r.title.indexOf(title) != -1;
+            var recipeTitle = r.title.toLowerCase();
+            return recipeTitle.indexOf(title) != -1;
           });
         }
 
@@ -137,11 +139,11 @@
             
             for ( var i = 0 ; i < recipeIngredients.length ; i++ )
             {
-              var recipeIngredient = recipeIngredients[i].name;
+              var recipeIngredient = recipeIngredients[i].name.toLowerCase();
 
               for ( var j = 0 ; j < ingredients.length ; j++ )
               {
-                var ingredient = ingredients[j];
+                var ingredient = ingredients[j].toLowerCase();
                 if ( ingredient.indexOf(recipeIngredient) != -1 || recipeIngredient.indexOf(ingredient) != -1 )
                   return true;
               }
