@@ -319,8 +319,6 @@ function no$$hashKey(key, val){
     $scope.userName = null;
     $scope.userAvatar = null;
 
-    $scope.searchText = null;
-
     $scope.recipes = [];
 
     var loginWithUsername = null;
@@ -350,7 +348,13 @@ function no$$hashKey(key, val){
         Noty.error("L'usuari no existeix.");
     };
 
+    $scope.searchPlaceholderText = 'Cercar receptes';
+
     $scope.ingredientSelector = {
+      createSearchChoice: function(term, data) {
+        if ( $(data).filter(function() { return this.text.localeCompare(term)===0; }).length===0 )
+          return { id:term, text:term };
+      },
       query: function(query){
         var data = { results: DB.getIngredientsThatContains(query.term.toLowerCase()) };
         query.callback(data);
@@ -359,8 +363,43 @@ function no$$hashKey(key, val){
       multiple: true
     };
 
+    $scope.$watch('searchForm', function(enabled){
+      if ( enabled )
+      {
+        $scope.searchPlaceholderText = 'Cercar receptes per títol';
+      }
+      else
+      {
+        $scope.searchPlaceholderText = 'Cercar receptes';
+      }
+    });
+
     $scope.searchQuery = {
+      text: null,
       ingredients: null
+    };
+
+    $scope.searchRecipes = function(){
+      var title = $scope.searchQuery.text;
+      var ingredients = [];
+
+      $scope.searchQuery.ingredients.forEach(function(i){
+        ingredients.push(i.text);
+      });
+
+      var recipes = DB.getRecipesWith(title, ingredients);
+      $scope.updateView(recipes);
+
+      $scope.searchForm = false;
+      $scope.searchMatches = recipes.length;
+      $scope.searchAppliedCriteria = true;
+      $scope.searchQuery.text = null;
+      $scope.searchQuery.ingredients = null;
+    };
+
+    $scope.removeSearchCriteria = function(){
+      $scope.searchAppliedCriteria = false;
+      $scope.updateView(DB.getAllRecipes());
     };
 
     $scope.viewRecipe = function(data){
@@ -416,16 +455,15 @@ function no$$hashKey(key, val){
       promise.then(onUserLogin, onUserLoginError);
     };
 
-    $scope.updateView = function(){
-      var recipes = DB.getAllRecipes();
+    $scope.updateView = function(recipes){
       $scope.recipes = [];
       recipes.forEach(function(r, i){
         $scope.recipes.push(Card(r, i));
       });
-    }
+    };
 
     $scope.$on('db-loaded', function(){
-      $scope.updateView();
+      $scope.updateView(DB.getAllRecipes());
 
       if ( loginWithUsername )
       {
@@ -437,7 +475,8 @@ function no$$hashKey(key, val){
     });
 
     $scope.$on('new-recipe', function(){
-      $scope.updateView();
+      if ( !$scope.searchAppliedCriteria )
+        $scope.updateView(DB.getAllRecipes());
     });
 
     $scope.$watch('location.path()', function(){

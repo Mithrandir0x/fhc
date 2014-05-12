@@ -120,6 +120,38 @@
         {
           db.recipes.push(recipe);
         }
+      },
+      getRecipesWith: function(title, ingredients){
+        var l = db.recipes;
+        if ( title )
+        {
+          l = l.filter(function(r){
+            return r.title.indexOf(title) != -1;
+          });
+        }
+
+        if ( ingredients && ingredients.length > 0 )
+        {
+          l = l.filter(function(r){
+            var recipeIngredients = r.ingredients;
+            
+            for ( var i = 0 ; i < recipeIngredients.length ; i++ )
+            {
+              var recipeIngredient = recipeIngredients[i].name;
+
+              for ( var j = 0 ; j < ingredients.length ; j++ )
+              {
+                var ingredient = ingredients[j];
+                if ( ingredient.indexOf(recipeIngredient) != -1 || recipeIngredient.indexOf(ingredient) != -1 )
+                  return true;
+              }
+            }
+
+            return false;
+          });
+        }
+
+        return l;
       }
     };
 

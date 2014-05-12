@@ -37,6 +37,11 @@
         "title": "Acabo de pensar que seria una bona idea parlar sobre cuestions morals més interessants...",
         "description": "Amb <b>un text descriptiu</b> sense imatge!<div><br></div><div>No sé com possar altres parts <b>del text en altres for</b>mats que no siguin <strike>negreta</strike>...</div>",
         "photo": "res/img/tumblr_inline_mylq6j4lsc1raprkq.gif"
+      },
+      {
+        "title": "Pensaveu que això només serveix per fer receptes de cuina?",
+        "description": "",
+        "photo": "res/img/1397222549863.gif"
       }
     ]
   },
@@ -60,6 +65,15 @@
         "quantity": {
           "id": "Mig litre",
           "text": "Mig litre"
+        }
+      },
+      {
+        "id": 33,
+        "name": "canyella",
+        "measure": 1,
+        "quantity": {
+          "id": "Dues barretes",
+          "text": "Dues barretes"
         }
       }
     ],
@@ -90,7 +104,7 @@
   },
   {
     "id": 9255,
-    "title": "Macarrons al dente amb tomaquet",
+    "title": "Talls de pernil agredolç",
     "authorId": 1,
     "published": false,
     "authorName": "Jack Nicholson",
@@ -132,13 +146,13 @@
         }
       }
     ],
-    "mainPhoto": "res/img/macarrons.jpg",
+    "mainPhoto": "res/img/pernil-agredolc.jpg",
     "customersAmount": 1,
     "steps": [
       {
         "title": null,
         "description": "<strong></strong>\n                            <div><p>Fregiu el pernil i reserveu-lo</p></div>",
-        "photo": "res/img/macarrons-step-1.jpg"
+        "photo": "res/img/pernil-agredolc-step-1.jpg"
       },
       {
         "title": null,
@@ -154,7 +168,7 @@
   },
   {
     "id": 4643,
-    "title": "Talls de pernil agredolç",
+    "title": "Macarrons al dente amb tomaquet",
     "authorId": 1,
     "published": false,
     "authorName": "Jack Nicholson",
@@ -211,13 +225,13 @@
         }
       }
     ],
-    "mainPhoto": "res/img/pernil-agredolc.jpg",
+    "mainPhoto": "res/img/macarrons.jpg",
     "customersAmount": 3,
     "steps": [
       {
         "title": "<br>",
         "description": "Enrossiu la carn amb oli, afegiu-hi la ceba, l’all i els tomàquets, i ho feu coure tot junt fins que la carn estigui cuita.<br>Si abans que la carn quedi cuita s’ha evaporat tot el líquid, podeu afegir miques d’aigua de bullir els macarrons.",
-        "photo": "res/img/pernil-agredolc-step-1.jpg"
+        "photo": "res/img/macarrons-step-1.jpg"
       },
       {
         "title": null,
