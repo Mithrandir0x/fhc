@@ -3,6 +3,8 @@
     "id": 2,
     "title": "aquest és el títol de la recepta",
     "authorId": 1,
+    "score": 5,
+    "score_times": 1,
     "published": true,
     "authorName": "Jack Nicholson",
     "ingredients": [
@@ -49,6 +51,8 @@
     "id": 3,
     "title": "Torrijas",
     "authorId": 1,
+    "score": 5,
+    "score_times": 1,
     "published": false,
     "authorName": "Usuari",
     "ingredients": [
@@ -106,6 +110,8 @@
     "id": 9255,
     "title": "Talls de pernil agredolç",
     "authorId": 1,
+    "score": 5,
+    "score_times": 1,
     "published": false,
     "authorName": "Jack Nicholson",
     "ingredients": [
@@ -170,6 +176,8 @@
     "id": 4643,
     "title": "Macarrons al dente amb tomaquet",
     "authorId": 1,
+    "score": 5,
+    "score_times": 1,
     "published": false,
     "authorName": "Jack Nicholson",
     "ingredients": [
@@ -249,6 +257,8 @@
     "id": 1429,
     "title": "Massa per a pizzes",
     "authorId": 1,
+    "score": 5,
+    "score_times": 1,
     "published": true,
     "authorName": "Jack Nicholson",
     "ingredients": [
@@ -305,6 +315,8 @@
     "id": 1644,
     "title": "Escudella",
     "authorId": 1,
+    "score": 5,
+    "score_times": 1,
     "published": false,
     "authorName": "Jack Nicholson",
     "ingredients": [
